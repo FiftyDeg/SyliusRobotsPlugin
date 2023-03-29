@@ -47,7 +47,7 @@
     "yargs": "^17.5.1"
   },
   "engines": {
-    "node": "^14 || ^16 || ^18"
+    "node": "v16.18.1"
   },
   "engineStrict": true,
   "scripts": {
