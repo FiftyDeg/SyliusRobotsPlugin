@@ -28,6 +28,14 @@ final class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('default')
+                    ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('robots_content')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 
