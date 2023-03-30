@@ -12,7 +12,7 @@ final class ConfigLoader implements ConfigLoaderInterface
         private ParameterBag $parameterBag
     )
     {
-    } 
+    }
 
 
     public function getRobotsByChannelCode(string $channelCode): string
