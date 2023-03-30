@@ -47,8 +47,7 @@ services:
       - sylius-plugin-network
     command: >
         bash -c
-        "sed -i \"s/DATABASE_URL=mysql:\/\/root@127\.0\.0\.1\/acme_sylius_example_plugin_%kernel\.environment%?serverVersion=5\.7/DATABASE_URL=mysql:\/\/root:mysql@${COMPOSE_PROJECT_NAME}_mysql\/${COMPOSE_PROJECT_NAME}_mysql_%kernel\.environment%?serverVersion=5\.7/g\" ./tests/Application/.env
-        && composer install --no-interaction --no-scripts
+        "composer install --no-interaction --no-scripts
         && chown $HOST_UID:$HOST_GID -R ./vendor 
         && cd ./tests/Application
         && mkdir -p ./var/log ./var/cache ./public/media/cache ./public/media/image

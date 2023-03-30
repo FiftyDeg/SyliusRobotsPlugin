@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Acme\SyliusExamplePlugin;
+namespace FiftyDeg\SyliusRobotsPlugin;
 
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class AcmeSyliusExamplePlugin extends Bundle
+final class FiftyDegSyliusRobotsPlugin extends Bundle
 {
     use SyliusPluginTrait;
-
-    public function getPath(): string
-    {
-        return \dirname(__DIR__);
-    }
 }
