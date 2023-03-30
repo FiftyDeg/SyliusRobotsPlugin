@@ -88,6 +88,3 @@ RUN apt-get update \
     libxrender1 \
     xfonts-base \
     xfonts-75dpi
-
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb \
-    && dpkg -i wkhtmltox_0.12.6.1-2.bullseye_amd64.deb

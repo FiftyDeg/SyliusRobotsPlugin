@@ -1,0 +1,8 @@
+services:
+    
+    fifty_deg.sylius_robots_plugin.controller.robots_controller:
+        class: FiftyDeg\SyliusRobotsPlugin\Controller\RobotsController
+        arguments:
+            - "@sylius.context.channel"
+            - "@fifty_deg.sylius_robots_plugin.config_loader.config_loader"
+        tags: [ controller.service_arguments ]

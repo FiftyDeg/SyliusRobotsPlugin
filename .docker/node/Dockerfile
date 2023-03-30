@@ -5,7 +5,7 @@ WORKDIR /src/
 RUN apt-get update && \
     apt-get install -y gnupg2 curl && \
     # Install node
-    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get update && \
     apt-get install -y --no-install-recommends nodejs
 
