@@ -4,3 +4,7 @@ fifty_deg_sylius_robots:
             robots_content: | 
                 User-agent: *
                 Disallow: /
+    default:
+        -   robots_content: | 
+                User-agent: *
+                Disallow: /

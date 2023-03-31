@@ -18,14 +18,16 @@ final class ConfigLoader implements ConfigLoaderInterface
     public function getRobotsByChannelCode(string $channelCode): string
     {
         $channelsConf = $this->getParam('channels') ?? [];
+        $defaultConf = $this->getParam('default') ?? [];
 
         foreach($channelsConf as $channelConf) {
-            if ($channelConf["code"] === $channelCode) {
+            if (isset($channelConf["code"])
+                && $channelConf["code"] === $channelCode) {
                 return $channelConf["robots_content"];
             }
         }
 
-        return '';
+        return $defaultConf["robots_content"];
     }
 
     private function getParam(string $paramName): mixed
