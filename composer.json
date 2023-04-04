@@ -1,10 +1,11 @@
 {
-    "name": "sylius/plugin-skeleton",
+    "name": "fiftydeg/sylius-robots-plugin",
     "type": "sylius-plugin",
-    "description": "Acme example plugin for Sylius.",
+    "description": "Fifty Deg robots.txt plugin for Sylius.",
     "keywords": [
         "sylius",
-        "sylius-plugin"
+        "sylius-plugin",
+        "fiftydeg"
     ],
     "license": "MIT",
     "require": {
