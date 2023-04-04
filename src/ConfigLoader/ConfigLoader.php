@@ -27,7 +27,11 @@ final class ConfigLoader implements ConfigLoaderInterface
             }
         }
 
-        return $defaultConf["robots_content"];
+        if(count($defaultConf) == 1) {
+            return $defaultConf[0]["robots_content"];
+        }
+
+        throw new \Exception('no Default Configuration or too many default configuration for robots yaml');
     }
 
     private function getParam(string $paramName): mixed
