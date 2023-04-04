@@ -1,0 +1,20 @@
+services:
+    _defaults: { public: true }
+
+    tests.fifty_deg.sylius_robots_plugin.behat.page.shop.home_page:
+        class: Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\HomePage
+        parent: sylius.behat.symfony_page
+        public: false
+
+
+    tests.fifty_deg.sylius_robots_plugin.behat.page.shop.checkout:
+        class: Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\Checkout
+        parent: sylius.behat.symfony_page
+        public: false
+
+    tests.fifty_deg.sylius_robots_plugin.behat.context.ui.shop.crawling_pages_context:
+        class: Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Context\Ui\Shop\CrawlingPagesContext
+        arguments:
+            # Update arguments based on your needs
+            - "@tests.fifty_deg.sylius_robots_plugin.behat.page.shop.home_page"
+            - "@tests.fifty_deg.sylius_robots_plugin.behat.page.shop.checkout"

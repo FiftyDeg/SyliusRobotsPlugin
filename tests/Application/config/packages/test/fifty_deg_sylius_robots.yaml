@@ -1,6 +1,6 @@
 fifty_deg_sylius_robots:
     channels:
-        -   code: 'FASHION_WEB'
+        -   code: 'DISALLOW_CHECKOUT'
             robots_content: | 
                 User-agent: *
                 Disallow: /checkout

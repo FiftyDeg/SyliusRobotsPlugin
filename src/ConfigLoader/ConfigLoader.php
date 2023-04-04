@@ -20,12 +20,17 @@ final class ConfigLoader implements ConfigLoaderInterface
         $channelsConf = $this->getParam('channels') ?? [];
         $defaultConf = $this->getParam('default') ?? [];
 
+        var_dump($channelCode);
+        var_dump($channelsConf);
+
         foreach($channelsConf as $channelConf) {
             if (isset($channelConf["code"])
                 && $channelConf["code"] === $channelCode) {
                 return $channelConf["robots_content"];
             }
         }
+
+        var_dump($defaultConf);die();
 
         return $defaultConf["robots_content"];
     }

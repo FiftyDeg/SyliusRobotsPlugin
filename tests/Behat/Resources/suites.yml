@@ -2,9 +2,6 @@
 
 default:
     suites:
-        greeting_customer:
+        crowling_pages:
             contexts:
-                - acme_sylius_example.context.ui.shop.welcome
-
-            filters:
-                tags: "@greeting_customer"
+                - tests.fifty_deg.sylius_robots_plugin.behat.context.ui.shop.crawling_pages_context
