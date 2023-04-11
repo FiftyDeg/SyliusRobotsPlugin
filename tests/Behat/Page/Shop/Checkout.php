@@ -7,14 +7,18 @@ namespace Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 
-class Checkout extends SymfonyPage implements SymfonyPageInterface
+class Checkout extends SymfonyPage
 {
     /**
      * {@inheritdoc}
      */
     public function getRouteName(): string
     {
-        //return 'sylius_shop_homepage';
-        return 'https://127.0.0.1:8080/checkout';
+        return 'sylius_shop_checkout_address';
+    }
+
+    public function getUrl(array $urlParameters = []): string
+    {
+        return parent::getUrl($urlParameters);
     }
 }

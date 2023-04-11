@@ -43,6 +43,8 @@ services:
       - "sylius_plugin_php_socket:/var/run"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+      - "syliusplugin.local:172.21.0.4"
+      - "syliusplugindc.local:172.21.0.4"
     networks:
       - sylius-plugin-network
     command: >

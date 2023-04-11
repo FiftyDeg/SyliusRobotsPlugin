@@ -2,6 +2,19 @@
 
 default:
     suites:
-        crowling_pages:
+        crawling_pages:
             contexts:
+                # - sylius.behat.context.hook.doctrine_orm
+                - sylius.behat.context.setup.channel
+                - sylius.behat.context.setup.product
+                - sylius.behat.context.setup.customer
+                - sylius.behat.context.setup.shop_security
+                - sylius.behat.context.transform.lexical
+                - sylius.behat.context.transform.product
+                - sylius.behat.context.transform.channel
+                # - sylius.behat.context.ui.shop.product
+                # - sylius.behat.context.ui.shop.cart
+                - sylius.behat.context.ui.shop.homepage
                 - tests.fifty_deg.sylius_robots_plugin.behat.context.ui.shop.crawling_pages_context
+            filters:
+                tags: "@crawling_pages&&@ui"
