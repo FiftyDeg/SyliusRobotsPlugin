@@ -50,9 +50,11 @@ services:
     command: >
         bash -c
         "composer install --no-interaction --no-scripts
-        && chown $HOST_UID:$HOST_GID -R ./vendor
+        && chown $HOST_UID:$HOST_GID -R ./vendor 
         && cd ./tests/Application
         && mkdir -p ./var/log ./var/cache ./public/media/cache ./public/media/image
+        && chown $HOST_UID:$HOST_GID -R ./var
+        && chown $HOST_UID:$HOST_GID -R ./public
         && echo Checking requirements
         && yes | php bin/console sylius:install:check-requirements
         && yes | php bin/console sylius:install --no-interaction --verbose --env ${APP_ENV}
