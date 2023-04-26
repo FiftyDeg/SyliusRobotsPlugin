@@ -15,11 +15,8 @@ docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "XDEBUG_MODE
 printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 PHPSTAN ******\r\n********************\r\n********************\r\n\r\n${NC}"
 docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "XDEBUG_MODE=off php vendor/bin/phpstan analyse -c phpstan.neon -l max src/"
 
-printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 PHPMD SRC ****\r\n********************\r\n********************\r\n\r\n${NC}"
+printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 PHPMD ********\r\n********************\r\n********************\r\n\r\n${NC}"
 docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "XDEBUG_MODE=off php vendor/bin/phpmd src,tests/Behat github phpmd.ruleset.xml"
-
-printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 PHPMD BEHAT **\r\n********************\r\n********************\r\n\r\n${NC}"
-docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "XDEBUG_MODE=off php vendor/bin/phpmd tests/Behat github phpmd.ruleset.xml"
 
 printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 CONTAINER ****\r\n********************\r\n********************\r\n\r\n${NC}"
 docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "cd tests/Application && XDEBUG_MODE=off php bin/console lint:container"
