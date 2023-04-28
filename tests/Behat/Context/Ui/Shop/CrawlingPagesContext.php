@@ -5,37 +5,28 @@ declare(strict_types=1);
 namespace Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
-use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\HomePage;
-use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\Checkout;
-use Webmozart\Assert\Assert;
-use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Context\BaseContext;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Context\BaseContext;
+use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\Checkout;
+use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\HomePage;
+use Webmozart\Assert\Assert;
 
 final class CrawlingPagesContext extends BaseContext implements Context
 {
-
-    /**
-     * @param HomePage $homePage
-     * @param Checkout $checkout
-     */
-    public function __construct(private HomePage $homePage, 
-        private Checkout $checkout, 
+    public function __construct(
+        private HomePage $homePage,
+        private Checkout $checkout,
         private ChannelRepositoryInterface $repositoryChannel,
-        private RepositoryInterface $repositoryLocale)
-    {
+        private RepositoryInterface $repositoryLocale,
+    ) {
     }
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $crawlerUserAgent = 'Googlebot';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $channelName = '';
-
 
     /**
      * @Given I am a :crawlerUserAgent crawler
@@ -69,25 +60,25 @@ final class CrawlingPagesContext extends BaseContext implements Context
         $errorAllow = '';
         $errorDisAllow = '';
         $foundChannel = false;
-        foreach($allChannels as $channel) {
-            if($this->channelName != ''
-                && $channel->getCode() != $this->channelName) {
+        foreach ($allChannels as $channel) {
+            if ($this->channelName != '' &&
+                $channel->getCode() != $this->channelName) {
                 continue;
             }
 
             $foundChannel = true;
 
-            $checkUrlWithChannelRobotsResults = $this->checkUrlWithChannelRobots($channel, $pageToCheck);
-            if(isset($checkUrlWithChannelRobotsResults['disAllow'])
-                && count($checkUrlWithChannelRobotsResults['disAllow']) > 0) {
+            $checkUrlRobots = $this->checkUrlWithChannelRobots($channel, $pageToCheck);
+            if (isset($checkUrlRobots['disAllow']) &&
+                count($checkUrlRobots['disAllow']) > 0) {
                 $resultDisAllow = false;
-                $errorDisAllow .= $this->buildErrorsString($checkUrlWithChannelRobotsResults['disAllow'], $channel); 
+                $errorDisAllow .= $this->buildErrorsString($checkUrlRobots['disAllow'], $channel);
             }
 
-            if(isset($checkUrlWithChannelRobotsResults['allow'])
-                && count($checkUrlWithChannelRobotsResults['allow']) > 0) {
+            if (isset($checkUrlRobots['allow']) &&
+                count($checkUrlRobots['allow']) > 0) {
                 $resultAllow = false;
-                $errorAllow .= $this->buildErrorsString($checkUrlWithChannelRobotsResults['allow'], $channel); 
+                $errorAllow .= $this->buildErrorsString($checkUrlRobots['allow'], $channel);
             }
         }
 
@@ -96,7 +87,7 @@ final class CrawlingPagesContext extends BaseContext implements Context
             'resultAllow' => $resultAllow,
             'resultDisAllow' => $resultDisAllow,
             'errorAllow' => $errorAllow,
-            'errorDisAllow' => $errorDisAllow
+            'errorDisAllow' => $errorDisAllow,
         ];
     }
 
@@ -105,16 +96,16 @@ final class CrawlingPagesContext extends BaseContext implements Context
      */
     public function iShouldBeAbleToCrawlHomePage(): void
     {
-        $checkUrlWithAllChannelsAndRobots = $this->checkUrlWithAllChannelsAndRobots($this->homePage);
+        $checkUrlWithRobots = $this->checkUrlWithAllChannelsAndRobots($this->homePage);
 
         Assert::true(
-            $checkUrlWithAllChannelsAndRobots['foundChannel'],
+            $checkUrlWithRobots['foundChannel'],
             'Channel not found',
         );
 
         Assert::true(
-            $checkUrlWithAllChannelsAndRobots['resultDisAllow'],
-            $checkUrlWithAllChannelsAndRobots['errorDisAllow'],
+            $checkUrlWithRobots['resultDisAllow'],
+            $checkUrlWithRobots['errorDisAllow'],
         );
     }
 
@@ -123,16 +114,16 @@ final class CrawlingPagesContext extends BaseContext implements Context
      */
     public function iShouldNotBeAbleToCrawlCheckout(): void
     {
-        $checkUrlWithAllChannelsAndRobots = $this->checkUrlWithAllChannelsAndRobots($this->checkout);
+        $checkUrlWithRobots = $this->checkUrlWithAllChannelsAndRobots($this->checkout);
 
         Assert::true(
-            $checkUrlWithAllChannelsAndRobots['foundChannel'],
+            $checkUrlWithRobots['foundChannel'],
             'Channel not found',
         );
 
         Assert::true(
-            $checkUrlWithAllChannelsAndRobots['resultAllow'],
-            $checkUrlWithAllChannelsAndRobots['errorAllow'],
+            $checkUrlWithRobots['resultAllow'],
+            $checkUrlWithRobots['errorAllow'],
         );
     }
 
@@ -140,86 +131,86 @@ final class CrawlingPagesContext extends BaseContext implements Context
     {
         $allLocales = $this->repositoryLocale->findAll();
         $allLocalesCodes = [];
-        foreach($allLocales as $locale) {
+        foreach ($allLocales as $locale) {
             $allLocalesCodes[$locale->getCode()] = $locale->getCode();
         }
         $parsedPageUrl = parse_url($page->getUrl());
         $pageScheme = $parsedPageUrl['scheme'];
         $pagePath = strtolower($parsedPageUrl['path']);
-        foreach($allLocalesCodes as $localeCode) {
-            if(str_starts_with(ltrim($pagePath, '/'), strtolower($localeCode))) {
+        foreach ($allLocalesCodes as $localeCode) {
+            if (str_starts_with(ltrim($pagePath, '/'), strtolower($localeCode))) {
                 $pagePath = str_replace('/' . strtolower($localeCode), '', $pagePath);
             }
         }
-        $allUserAgentDirectives = $this->getAllUserAgentDirectives($channel, $pageScheme);
+        $allUserAgents = $this->getAllUserAgentDirectives($channel, $pageScheme);
 
-        if(!isset($allUserAgentDirectives[strtolower($this->crawlerUserAgent)])) {
+        if (!isset($allUserAgents[strtolower($this->crawlerUserAgent)])) {
             return false;
         }
 
-        $userAgentDirective = $allUserAgentDirectives[strtolower($this->crawlerUserAgent)];
+        $userAgentDirective = $allUserAgents[strtolower($this->crawlerUserAgent)];
 
         $result = [];
-        if($this->checkUrlWithRobot($pagePath, $userAgentDirective)) {
-            $result['allow'][$userAgentDirective->userAgent] = ['pagePath' => $pagePath, 'userAgent' => $userAgentDirective];
+        $allowIndex = 'disAllow';
+        if ($this->checkUrlWithRobot($pagePath, $userAgentDirective)) {
+            $allowIndex = 'allow';
         }
-        else {
-            $result['disAllow'][$userAgentDirective->userAgent] = ['pagePath' => $pagePath, 'userAgent' => $userAgentDirective];
-        }
+        $result[$allowIndex][$userAgentDirective->userAgent] = ['pagePath' => $pagePath, 'userAgent' => $userAgentDirective];
+
         return $result;
     }
 
     private function buildUserAgentDirective($disAllowItem, $pagePath)
     {
-        $disAllowItemToUse = strtolower(rtrim($disAllowItem, "/"));
-        $disAllowComponents = explode("/", $disAllowItemToUse);
-        $pagePathComponents = explode("/", $pagePath);
-        foreach($disAllowComponents as $disAllowComponentKey => $disAllowComponent) {
-            if($disAllowComponent == '*'
-                && isset($pagePathComponents[$disAllowComponentKey])) {
+        $disAllowItemToUse = strtolower(rtrim($disAllowItem, '/'));
+        $disAllowComponents = explode('/', $disAllowItemToUse);
+        $pagePathComponents = explode('/', $pagePath);
+        foreach ($disAllowComponents as $disAllowComponentKey => $disAllowComponent) {
+            if ($disAllowComponent == '*' &&
+                isset($pagePathComponents[$disAllowComponentKey])) {
                 $disAllowComponents[$disAllowComponentKey] = $pagePathComponents[$disAllowComponentKey];
             }
         }
-        return(implode("/", $disAllowComponents));
+
+        return implode('/', $disAllowComponents);
     }
 
     private function checkUrlWithRobot($pagePath, $userAgent)
     {
-        if($userAgent->disAllow
-            && count($userAgent->disAllow) > 0) {
-            foreach($userAgent->disAllow as $disAllowItem) {
+        if ($userAgent->disAllow &&
+            count($userAgent->disAllow) > 0) {
+            foreach ($userAgent->disAllow as $disAllowItem) {
                 $disAllowItemToUse = $this->buildUserAgentDirective($disAllowItem, $pagePath);
-                if(str_starts_with($pagePath, $disAllowItemToUse)) {
+                if (str_starts_with($pagePath, $disAllowItemToUse)) {
                     return false;
                 }
             }
         }
+
         return true;
     }
 
     private function getAllUserAgentDirectives($channel, $pageScheme)
     {
         $realPagePath = $pageScheme . '://' . $channel->getHostname() . '/';
-        $robotsUrl = $realPagePath . "robots.txt";
+        $robotsUrl = $realPagePath . 'robots.txt';
         $userAgent = null;
         $allUserAgents = [];
 
-        $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
-            ),
-        );  
-        
+        $arrContextOptions = [
+            'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+            ],
+        ];
+
         $response = file_get_contents($robotsUrl, false, stream_context_create($arrContextOptions));
 
         $lines = explode("\n", $response); // this is your array of words
 
-        foreach($lines as $line) {
-            if (preg_match("/user-agent.*/i", $line) ){
-                $userAgentName = trim(strtolower(explode(':', $line, 2)[1]));
-
-                if($userAgent != null){
+        foreach ($lines as $line) {
+            if (preg_match('/user-agent.*/i', $line)) {
+                if ($userAgent != null) {
                     $allUserAgents[$userAgent->userAgent] = $userAgent;
                 }
 
@@ -228,30 +219,29 @@ final class CrawlingPagesContext extends BaseContext implements Context
                 $userAgent->disAllow = [];
                 $userAgent->allow = [];
             }
-            if (preg_match("/disallow.*/i", $line)){
+            if (preg_match('/disallow.*/i', $line)) {
                 array_push($userAgent->disAllow, trim(explode(':', $line, 2)[1]));
-            }
-            else if (preg_match("/^allow.*/i", $line)){
+            } elseif (preg_match('/^allow.*/i', $line)) {
                 array_push($userAgent->allow, trim(explode(':', $line, 2)[1]));
             }
         }
 
-        if($userAgent != null){
+        if ($userAgent != null) {
             $allUserAgents[$userAgent->userAgent] = $userAgent;
         }
 
         return $allUserAgents;
     }
 
-    private function buildErrorsString($checkChannelRobotsResults, $channel) 
+    private function buildErrorsString($checkRobots, $channel)
     {
         $errorsString = '';
-        if(count($checkChannelRobotsResults) > 0) {
-            $status = false;
-            foreach($checkChannelRobotsResults as $robotName => $checkChannelRobotsResultItem) {
-                $errorsString .= $channel->getCode() . ' - ' . $channel->getName() . ' - ' . 'Error: ' . $robotName . ' - ' . $checkChannelRobotsResultItem['pagePath'] . '; ';
+        if (count($checkRobots) > 0) {
+            foreach ($checkRobots as $robotName => $checkRobot) {
+                $errorsString .= $channel->getCode() . ' - ' . $channel->getName() . ' - ' . 'Error: ' . $robotName . ' - ' . $checkRobot['pagePath'] . '; ';
             }
         }
+
         return $errorsString;
     }
 }

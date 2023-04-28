@@ -8,8 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 use Sylius\Bundle\FixturesBundle\Listener\AbstractListener;
 use Sylius\Bundle\FixturesBundle\Listener\AfterFixtureListenerInterface;
 use Sylius\Bundle\FixturesBundle\Listener\FixtureEvent;
-use Sylius\Component\Core\Model\Channel;
-use Sylius\Component\Core\Model\ChannelInterface;
 
 /*
 It's a good idea to not throw this file away, because it could go implement great functionalities, especially before and after the fixture execution.
@@ -17,9 +15,7 @@ It's a good idea to not throw this file away, because it could go implement grea
 
 final class FiftyDegSyliusRobotsPluginChannelsListener extends AbstractListener implements AfterFixtureListenerInterface
 {
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $channelManager;
 
     public function __construct(ObjectManager $channelManager)

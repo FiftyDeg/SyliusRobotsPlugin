@@ -13,9 +13,7 @@ use InvalidArgumentException;
 
 class BaseContext extends RawMinkContext
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $webUrl;
 
     /**
@@ -89,8 +87,8 @@ class BaseContext extends RawMinkContext
                 $backtrace[0]['class'],
                 $backtrace[0]['function'],
                 $backtrace[0]['file'],
-                $backtrace[0]['line']
-            )
+                $backtrace[0]['line'],
+            ),
         );
     }
 
@@ -116,7 +114,7 @@ class BaseContext extends RawMinkContext
         if (!is_a($this->getSession()->getDriver(), $driverClass)) {
             throw new UnsupportedDriverActionException(
                 sprintf('This step is only supported by the %s driver', $driverClass),
-                $this->getSession()->getDriver()
+                $this->getSession()->getDriver(),
             );
         }
     }
@@ -129,15 +127,15 @@ class BaseContext extends RawMinkContext
         if (is_a($this->getSession()->getDriver(), $driverClass)) {
             throw new UnsupportedDriverActionException(
                 sprintf('This step is not supported by the %s driver', $driverClass),
-                $this->getSession()->getDriver()
+                $this->getSession()->getDriver(),
             );
         }
     }
 
-    protected function assertInverse(callable $callableStepDefinition, string $exceptionMessage = ''): void
+    protected function assertInverse(callable $callableStepDef, string $exceptionMessage = ''): void
     {
         try {
-            $callableStepDefinition();
+            $callableStepDef();
         } catch (InvalidArgumentException $e) {
             return;
         }

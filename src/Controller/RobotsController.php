@@ -9,17 +9,18 @@ use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
-final class RobotsController {
-
+final class RobotsController
+{
     public function __construct(
         private ChannelContextInterface $channelContext,
-        private ConfigLoaderInterface $configLoader
-    ) {}
+        private ConfigLoaderInterface $configLoader,
+    ) {
+    }
 
     public function __invoke(Request $request): Response
     {
-        $channelCode = $this->channelContext->getChannel()->getcode();
+        /** @var string $channelCode */
+        $channelCode = $this->channelContext->getChannel()->getCode();
 
         $robotsContent = $this->configLoader->getRobotsByChannelCode($channelCode);
 

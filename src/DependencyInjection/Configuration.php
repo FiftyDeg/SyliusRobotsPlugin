@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FiftyDeg\SyliusRobotsPlugin\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -16,28 +17,21 @@ final class Configuration implements ConfigurationInterface
 
         /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
-        $rootNode
-            ->children()
-                ->arrayNode('channels')
-                    ->arrayPrototype()
-                        ->children()
-                            ->scalarNode('code')
-                            ->end()
-                            ->scalarNode('robots_content')
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('default')
-                    ->arrayPrototype()
-                        ->children()
-                            ->scalarNode('robots_content')
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
+        $rootChildren = $rootNode->children();
+
+        $channels = $rootChildren->arrayNode('channels')->arrayPrototype()->children();
+
+        $channels->scalarNode('code');
+        $channels->scalarNode('robots_content');
+
+        /** @var NodeBuilder $channels */
+        $channels = $channels->end()->end();
+
+        /** @var NodeBuilder $rootChildren */
+        $rootChildren = $channels->end();
+
+        $default = $rootChildren->arrayNode('default')->arrayPrototype()->children();
+        $default->scalarNode('robots_content');
 
         return $treeBuilder;
     }

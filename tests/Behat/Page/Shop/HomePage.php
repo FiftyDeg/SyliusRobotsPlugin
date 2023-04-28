@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop;
 
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage;
-use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 
 class HomePage extends SymfonyPage
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getRouteName(): string
     {

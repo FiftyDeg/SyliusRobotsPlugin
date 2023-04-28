@@ -8,5 +8,4 @@ use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 
 interface CrawlingPagesInterface extends SymfonyPageInterface
 {
-    
 }
