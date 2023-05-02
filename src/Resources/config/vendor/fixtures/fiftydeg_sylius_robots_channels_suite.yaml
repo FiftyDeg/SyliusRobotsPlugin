@@ -11,8 +11,7 @@ sylius_fixtures:
           options:
             - code: FASHION_WEB
               hostname: syliusplugin.local
-            - name: DISALLOW CHECKOUT
-              code: DISALLOW_CHECKOUT
+            - code: DISALLOW_CHECKOUT
               locales:
                 - en_US
               currencies:
@@ -25,5 +24,12 @@ sylius_fixtures:
               currencies:
                 - USD
               hostname: syliusplugindc2.local
+            - name: DISALLOW CHECKOUT3
+              code: DISALLOW_CHECKOUT3
+              locales:
+                - en_US
+              currencies:
+                - USD
+              hostname: syliusplugindc3.local
                                 
                             

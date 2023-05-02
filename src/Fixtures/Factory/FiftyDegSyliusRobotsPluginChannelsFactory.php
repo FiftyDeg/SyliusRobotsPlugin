@@ -6,11 +6,11 @@ namespace FiftyDeg\SyliusRobotsPlugin\Fixtures\Factory;
 
 use Sylius\Bundle\CoreBundle\Fixture\Factory\AbstractExampleFactory;
 use Sylius\Bundle\CoreBundle\Fixture\OptionsResolver\LazyOption;
+use Sylius\Component\Channel\Factory\ChannelFactoryInterface;
 use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\OptionsResolver\Options;
@@ -18,20 +18,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
 {
-    /** @var FactoryInterface */
-    private $channelFactory;
-
     /** @var \Faker\Generator */
     private $faker;
 
     /** @var OptionsResolver */
     private $optionsResolver;
 
+    /** @var ChannelFactoryInterface */
+    private $channelFactory;
+
     public function __construct(
-        FactoryInterface $channelFactory,
+        ChannelFactoryInterface $channelFactory,
         private RepositoryInterface $localeRepository,
         private RepositoryInterface $currencyRepository,
-        private RepositoryInterface $zoneRepository,
     ) {
         $this->channelFactory = $channelFactory;
 
@@ -44,14 +43,17 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefault('name', function (): string {
-                return $this->faker->sentence;
-            })
-            ->setDefault('code', function (Options $options): string {
+            ->setDefault('name', function (Options $options): string {
                 /** @var string $optName */
                 $optName = $options['name'];
 
-                return StringInflector::nameToCode($optName);
+                return $optName;
+            })
+            ->setDefault('code', function (Options $options): string {
+                /** @var string $optCode */
+                $optCode = $options['code'];
+
+                return $optCode;
             })
             ->setDefault('hostname', function (Options $options): string {
                 /** @var string $optHostName */
