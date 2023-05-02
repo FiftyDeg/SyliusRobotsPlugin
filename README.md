@@ -25,7 +25,8 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 6. In /config/packages/dev/fiftydeg_sylius_robots_channels_suite.yaml, you can add all the channels you need automatically, with a Fixture.
 7. Open your browser and go to `https://syliusplugin.local`
 
-`fiftydeg_sylius_robots_channels_suite.yaml Example`
+### fiftydeg_sylius_robots_channels_suite.yaml Example
+
 sylius_fixtures:
   suites:
     fiftydeg_sylius_robots_plugin_channels_suite:
