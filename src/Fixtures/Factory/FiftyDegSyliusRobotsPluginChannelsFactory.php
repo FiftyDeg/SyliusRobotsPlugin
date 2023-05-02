@@ -7,7 +7,6 @@ namespace FiftyDeg\SyliusRobotsPlugin\Fixtures\Factory;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\AbstractExampleFactory;
 use Sylius\Bundle\CoreBundle\Fixture\OptionsResolver\LazyOption;
 use Sylius\Component\Channel\Factory\ChannelFactoryInterface;
-use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
@@ -62,10 +61,13 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
                 return $optHostName;
             })
             ->setDefault('default_locale', function (Options $options): ResourceInterface {
-                /** @var ResourceInterface $localeRepo */
+                /** @var ResourceInterface|null $localeRepo */
                 $localeRepo = $this->localeRepository->findOneBy(['code' => $this->faker->randomElement($options['locales'])]);
-                if(empty($localeRepo)) {
+                if (null === $localeRepo) {
+                    /** @var array<array-key, ResourceInterface> $allLocales */
                     $allLocales = $this->localeRepository->findAll();
+
+                    /** @var ResourceInterface $localeRepo */
                     $localeRepo = reset($allLocales);
                 }
 
@@ -78,10 +80,12 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
             ->setAllowedTypes('locales', 'array')
             ->setNormalizer('locales', LazyOption::findBy($this->localeRepository, 'code'))
             ->setDefault('base_currency', function (Options $options): CurrencyInterface {
-                /** @var CurrencyInterface $randomCurrencies */
+                /** @var CurrencyInterface|null $randomCurrencies */
                 $randomCurrencies = $this->currencyRepository->findOneBy(['code' => $this->faker->randomElement($options['currencies'])]);
-                if(empty($randomCurrencies)) {
+                if (null === $randomCurrencies) {
                     $allCurrencies = $this->currencyRepository->findAll();
+
+                    /** @var CurrencyInterface $randomCurrencies */
                     $randomCurrencies = reset($allCurrencies);
                 }
 
@@ -98,12 +102,12 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
     /** @param array<array-key, mixed> $options */
     public function create(array $options = []): ChannelInterface
     {
-        if(!isset($options['name']) || empty($options['name'] ||
-            !isset($options['code']) || empty($options['code']) ||
-            !isset($options['hostname']) || empty($options['hostname']))) {
+        if (!isset($options['name']) ||
+            !isset($options['code']) ||
+            !isset($options['hostname'])) {
             throw new \Exception('Please chek you yaml configuration file, it seems some channel you can try to add, is missing some fundamental data');
         }
-        
+
         /** @var array<string, string|CurrencyInterface|LocaleInterface> $options */
         $options = $this->optionsResolver->resolve($options);
 
@@ -124,7 +128,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
         $defaultLocaleOpt = $options['default_locale'];
         $channel->setDefaultLocale($defaultLocaleOpt);
 
-        /** @var array<string> $localesOpt */
+        /** @var array<array-key, LocaleInterface> $localesOpt */
         $localesOpt = $options['locales'];
         foreach ($localesOpt as $locale) {
             $channel->addLocale($locale);
@@ -143,23 +147,26 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
         return $channel;
     }
 
-    /** @param array<array-key, mixed> $options */
+    /**
+     * @param ChannelInterface $channel
+     * @param array<array-key, mixed> $options
+     * */
     public function update($channel, array $options = []): ChannelInterface
     {
-        if (isset($options['name']) && !empty($options['name']) && is_string($options['name'])) {
+        if (isset($options['name']) && is_string($options['name']) && $options['name'] !== '') {
             $channel->setName($options['name']);
         }
-        if (isset($options['hostname']) && !empty($options['hostname']) && is_string($options['hostname'])) {
+        if (isset($options['hostname']) && is_string($options['hostname']) && $options['hostname'] !== '') {
             $channel->setHostname($options['hostname']);
         }
 
-        if (isset($options['default_locale']) && !empty($options['default_locale']) && is_string($options['default_locale'])) {
+        if (isset($options['default_locale']) && is_string($options['default_locale']) && $options['default_locale'] !== '') {
             /** @var LocaleInterface $defaultLocaleOpt */
             $defaultLocaleOpt = $options['default_locale'];
             $channel->setDefaultLocale($defaultLocaleOpt);
         }
 
-        if (isset($options['locales']) && !empty($options['locales'])) {
+        if (isset($options['locales'])) {
             /** @var array<string> $localesOpt */
             $localesOpt = $options['locales'];
             foreach ($localesOpt as $locale) {
@@ -169,13 +176,13 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
             }
         }
 
-        if (isset($options['base_currency']) && !empty($options['base_currency'])) {
+        if (isset($options['base_currency'])) {
             /** @var CurrencyInterface $baseCurrencyOpt */
             $baseCurrencyOpt = $options['base_currency'];
             $channel->setBaseCurrency($baseCurrencyOpt);
         }
 
-        if (isset($options['currencies']) && !empty($options['currencies'])) {
+        if (isset($options['currencies'])) {
             /** @var array<CurrencyInterface> $currenciesOpt */
             $currenciesOpt = $options['currencies'];
             foreach ($currenciesOpt as $currency) {
@@ -189,33 +196,48 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
     /** @param array<array-key, mixed> $options */
     public function checkOptionsFormats(array $options = []): string
     {
-        if(isset($options['locales'])) {
-            foreach($options['locales'] as $optionLocale) {
+        if (isset($options['locales'])) {
+            /** @var array<array-key, string> $optionsLocales */
+            $optionsLocales = $options['locales'];
+            foreach ($optionsLocales as $optionLocale) {
                 $localeRepo = $this->localeRepository->findOneBy(['code' => $optionLocale]);
-                if(is_null($localeRepo) || empty($localeRepo)) {
-                    return 'Please, check the format of the locales array data, in your configuration - ' . $optionLocale;
+                if (null === $localeRepo) {
+                    $result = 'Please, check the format of the locales array data, in your configuration - ' . $optionLocale;
+
+                    return $result;
                 }
             }
         }
-        if(isset($options['currencies'])) {
-            foreach($options['currencies'] as $optionCurrency) {
+        if (isset($options['currencies'])) {
+            /** @var array<array-key, string> $optionsCurrencies */
+            $optionsCurrencies = $options['currencies'];
+            foreach ($optionsCurrencies as $optionCurrency) {
                 $randomCurrencies = $this->currencyRepository->findOneBy(['code' => $optionCurrency]);
-                if(is_null($randomCurrencies) || empty($randomCurrencies)) {
-                    return 'Please, check the format of the currencies array data, in your configuration - ' . $optionCurrency;
+                if (null === $randomCurrencies) {
+                    $result = 'Please, check the format of the currencies array data, in your configuration - ' . $optionCurrency;
+
+                    return $result;
                 }
             }
-            
         }
-        if(isset($options['default_locale'])) {
+        if (isset($options['default_locale'])) {
             $localeRepo = $this->localeRepository->findOneBy(['code' => $this->faker->randomElement($options['default_locale'])]);
-            if(is_null($localeRepo) || empty($localeRepo)) {
-                return 'Please, check the format of the default_locale array data, in your configuration - ' . $options['default_locale'];
+            if (null === $localeRepo) {
+                /** @var string $defaultLocale */
+                $defaultLocale = $options['default_locale'];
+                $result = 'Please, check the format of the default_locale array data, in your configuration - ' . $defaultLocale;
+
+                return $result;
             }
         }
-        if(isset($options['base_currency'])) {
+        if (isset($options['base_currency'])) {
             $randomCurrencies = $this->currencyRepository->findOneBy(['code' => $this->faker->randomElement($options['base_currency'])]);
-            if(is_null($randomCurrencies) || empty($randomCurrencies)) {
-                return 'Please, check the format of the base_currency data, in your configuration - ' . $options['base_currency'];
+            if (null === $randomCurrencies) {
+                /** @var string $baseCurrency */
+                $baseCurrency = $options['base_currency'];
+                $result = 'Please, check the format of the base_currency data, in your configuration - ' . $baseCurrency;
+
+                return $result;
             }
         }
 

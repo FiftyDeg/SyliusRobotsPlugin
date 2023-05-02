@@ -31,15 +31,14 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
     /** @param array<array-key, mixed> $options */
     public function load(array $options): void
     {
-        /** @var array<ChannelInterface> $allChannels */
+        /** @var array<array-key, ChannelInterface> $allChannels */
         $allChannels = $this->repositoryChannel->findAll();
 
         /** @var array<array-key, mixed> $newChannelOptions */
         foreach ($options as $newChannelOptions) {
-
             $checkOptions = $this->channelsFactory->checkOptionsFormats($newChannelOptions);
 
-            if($checkOptions !== '-1') {
+            if ($checkOptions !== '-1') {
                 throw new \Exception($checkOptions);
             }
 
