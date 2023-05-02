@@ -27,6 +27,7 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 
 ### fiftydeg_sylius_robots_channels_suite.yaml Example
 
+```
 sylius_fixtures:
   suites:
     fiftydeg_sylius_robots_plugin_channels_suite:
@@ -58,6 +59,7 @@ sylius_fixtures:
               currencies:
                 - USD
               hostname: syliusplugindc3.local
+```
 
 ## Usage
 
