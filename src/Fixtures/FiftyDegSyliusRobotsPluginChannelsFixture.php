@@ -36,14 +36,19 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
 
         /** @var array<array-key, mixed> $newChannelOptions */
         foreach ($options as $newChannelOptions) {
+
+            $checkOptions = $this->channelsFactory->checkOptionsFormats($newChannelOptions);
+
+            if($checkOptions !== '-1') {
+                throw new \Exception($checkOptions);
+            }
+
             $channelAlreadyExists = false;
             foreach ($allChannels as $channel) {
                 /** @var string $newChannelCode */
                 $newChannelCode = $newChannelOptions['code'];
                 if ($channel->getCode() === $newChannelCode) {
-                    /** @var string $newChannelHostName */
-                    $newChannelHostName = $newChannelOptions['hostname'];
-                    $channel->setHostname($newChannelHostName);
+                    $channel = $this->channelsFactory->update($channel, $newChannelOptions);
                     $this->channelManager->persist($channel);
                     $channelAlreadyExists = true;
 
