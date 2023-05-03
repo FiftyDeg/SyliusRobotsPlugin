@@ -34,8 +34,14 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
         /** @var array<array-key, ChannelInterface> $allChannels */
         $allChannels = $this->repositoryChannel->findAll();
 
+        $alreadyAddedChannel = [];
+
         /** @var array<array-key, mixed> $newChannelOptions */
         foreach ($options as $newChannelOptions) {
+            if(isset($alreadyAddedChannel[$newChannelOptions['code']])) {
+                continue;
+            }
+
             $checkOptions = $this->channelsFactory->checkOptionsFormats($newChannelOptions);
 
             if ($checkOptions !== '-1') {
@@ -50,6 +56,7 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
                     $channel = $this->channelsFactory->update($channel, $newChannelOptions);
                     $this->channelManager->persist($channel);
                     $channelAlreadyExists = true;
+                    $alreadyAddedChannel[$newChannelOptions['code']] = $newChannelOptions['code'];
 
                     break;
                 }
@@ -58,6 +65,7 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
             if (!$channelAlreadyExists) {
                 $channel = $this->channelsFactory->create($newChannelOptions);
                 $this->channelManager->persist($channel);
+                $alreadyAddedChannel[$newChannelOptions['code']] = $newChannelOptions['code'];
             }
         }
 
