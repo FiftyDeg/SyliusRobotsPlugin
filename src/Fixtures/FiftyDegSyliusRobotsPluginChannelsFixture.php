@@ -34,11 +34,15 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
         /** @var array<array-key, ChannelInterface> $allChannels */
         $allChannels = $this->repositoryChannel->findAll();
 
+        /** @var array<string, string> $alreadyAddedChannel */
         $alreadyAddedChannel = [];
 
         /** @var array<array-key, mixed> $newChannelOptions */
         foreach ($options as $newChannelOptions) {
-            if(isset($alreadyAddedChannel[$newChannelOptions['code']])) {
+            /** @var string $newChannelCode */
+            $newChannelCode = $newChannelOptions['code'];
+
+            if (isset($alreadyAddedChannel[$newChannelCode])) {
                 continue;
             }
 
@@ -50,13 +54,11 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
 
             $channelAlreadyExists = false;
             foreach ($allChannels as $channel) {
-                /** @var string $newChannelCode */
-                $newChannelCode = $newChannelOptions['code'];
                 if ($channel->getCode() === $newChannelCode) {
                     $channel = $this->channelsFactory->update($channel, $newChannelOptions);
                     $this->channelManager->persist($channel);
                     $channelAlreadyExists = true;
-                    $alreadyAddedChannel[$newChannelOptions['code']] = $newChannelOptions['code'];
+                    $alreadyAddedChannel[$newChannelCode] = $newChannelCode;
 
                     break;
                 }
@@ -65,7 +67,7 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
             if (!$channelAlreadyExists) {
                 $channel = $this->channelsFactory->create($newChannelOptions);
                 $this->channelManager->persist($channel);
-                $alreadyAddedChannel[$newChannelOptions['code']] = $newChannelOptions['code'];
+                $alreadyAddedChannel[$newChannelCode] = $newChannelCode;
             }
         }
 
