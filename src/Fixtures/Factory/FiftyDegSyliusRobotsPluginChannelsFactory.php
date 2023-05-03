@@ -105,7 +105,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
         if (!isset($options['name']) ||
             !isset($options['code']) ||
             !isset($options['hostname'])) {
-            throw new \Exception('Please chek you yaml configuration file, it seems some channel you can try to add, is missing some fundamental data');
+            throw new \Exception('Please check you yaml configuration file, it seems some channel you can try to add, is missing some fundamental data - ' . implode(' - ', $options));
         }
 
         /** @var array<string, string|CurrencyInterface|LocaleInterface> $options */

@@ -23,7 +23,9 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 4. Add `- { resource: "@FiftyDegSyliusRobotsPlugin/Resources/config/config_vendor.yaml" }` into /config/services.yaml
 5. In /config/packages/dev/fifty_deg_sylius_robots.yaml insert your robots configurations, detailed per channel.
 6. In /config/packages/dev/fiftydeg_sylius_robots_channels_suite.yaml, you can add all the channels you need automatically, with a Fixture.
-7. Open your browser and go to `https://syliusplugin.local`
+7. Remember to add all the channel hostname that you need into docker-compose.yml, under `extra_hosts`, specifying also the exact port. For example `mycompany.com:127.0.0.1`
+8. Add the line `&& yes | php bin/console sylius:install --no-interaction --verbose --env ${APP_ENV}` in docker-compose.yml, after the line `&& yes | php bin/console sylius:install:check-requirements`; and the line `&& yes | php bin/console sylius:fixtures:load fiftydeg_sylius_robots_plugin_channels_suite --no-interaction` after `&& yes | php bin/console sylius:fixtures:load default --no-interaction`
+8. Open your browser and go to `https://syliusplugin.local`
 
 ### fiftydeg_sylius_robots_channels_suite.yaml Example
 
