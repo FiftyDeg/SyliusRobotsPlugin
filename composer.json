@@ -1,5 +1,5 @@
 {
-    "name": "fifty-deg/plugin-skeleton",
+    "name": "fifty-deg/sylius-robots-plugin",
     "type": "sylius-plugin",
     "description": "Channel defined robots.txt plugin for Sylius.",
     "keywords": [
