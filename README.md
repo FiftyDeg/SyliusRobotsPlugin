@@ -74,3 +74,11 @@ sylius_fixtures:
   - Run `cd .docker && ./bin/start_test.sh` in order to start docker compose in test mode
   - Wait docker to be up and running...
   - Run `cd .docker && ./bin/php_test.sh` in order to start static analysis and Behat tests
+
+#### BDD
+A suite for BDD testing is already present; it is registered in `/tests/Behat/Resources/services.yml`, you cand find the features in `/features`, the contexts in `/tests/Behat/Resources/suites.yml`, and the asscoiated PHP code in /tests/Behat/Context/Ui/Shop.
+It works on two hidden divs in your project footer; one should be cached and the other one not; but you can modify the test as you wish.
+
+Lastly, you have to add `config/packages/<environmente-where-you-are-working-in>/fiftydeg_sylius_cache_plugin.yaml`, as described before; so you can turn on and off che cache for the two divs in thw twigs specified before.
+
+

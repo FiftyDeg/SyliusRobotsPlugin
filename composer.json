@@ -1,7 +1,7 @@
 {
-    "name": "sylius/plugin-skeleton",
+    "name": "fifty-deg/plugin-skeleton",
     "type": "sylius-plugin",
-    "description": "Acme example plugin for Sylius.",
+    "description": "Channel defined robots.txt plugin for Sylius.",
     "keywords": [
         "sylius",
         "sylius-plugin"
