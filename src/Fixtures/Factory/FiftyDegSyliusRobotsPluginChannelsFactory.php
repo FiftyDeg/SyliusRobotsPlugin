@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FiftyDeg\SyliusRobotsPlugin\Fixtures\Factory;
 
-use Sylius\Bundle\CoreBundle\Fixture\Factory\AbstractExampleFactory;
+use Sylius\Bundle\CoreBundle\Fixture\Factory\ChannelExampleFactory;
 use Sylius\Bundle\CoreBundle\Fixture\OptionsResolver\LazyOption;
 use Sylius\Component\Channel\Factory\ChannelFactoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -15,7 +15,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FiftyDegSyliusRobotsPluginChannelsFactory extends AbstractExampleFactory
+class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
 {
     /** @var \Faker\Generator */
     private $faker;

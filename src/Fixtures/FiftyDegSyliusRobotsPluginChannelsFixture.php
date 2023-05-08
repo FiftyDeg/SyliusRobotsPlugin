@@ -21,11 +21,11 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
 
     public function __construct(
         ObjectManager $channelManager,
-        FiftyDegSyliusRobotsPluginChannelsFactory $channelsFactory2,
+        FiftyDegSyliusRobotsPluginChannelsFactory $channelFactory,
         private ChannelRepositoryInterface $repositoryChannel,
     ) {
         $this->channelManager = $channelManager;
-        $this->channelsFactory = $channelsFactory2;
+        $this->channelsFactory = $channelFactory;
     }
 
     /** @param array<array-key, mixed> $options */
