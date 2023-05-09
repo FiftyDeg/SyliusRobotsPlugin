@@ -13,6 +13,7 @@ services:
             - "@sylius.factory.channel"
             - "@sylius.repository.locale"
             - "@sylius.repository.currency"
+            - "@sylius.repository.zone"
             - "@sylius.repository.taxon"
             - "@sylius.factory.shop_billing_data"
     fiftydeg.listener.fiftydeg_sylius_robots_plugin_channels_listener:

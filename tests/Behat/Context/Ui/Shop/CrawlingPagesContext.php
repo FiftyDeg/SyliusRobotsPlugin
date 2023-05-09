@@ -14,12 +14,21 @@ use Webmozart\Assert\Assert;
 
 final class CrawlingPagesContext extends BaseContext implements Context
 {
+    private HomePage $homePage;
+    private Checkout $checkout;
+    private ChannelRepositoryInterface $repositoryChannel;
+    private RepositoryInterface $repositoryLocale;
+
     public function __construct(
-        private HomePage $homePage,
-        private Checkout $checkout,
-        private ChannelRepositoryInterface $repositoryChannel,
-        private RepositoryInterface $repositoryLocale,
+        HomePage $homePage,
+        Checkout $checkout,
+        ChannelRepositoryInterface $repositoryChannel,
+        RepositoryInterface $repositoryLocale
     ) {
+        $this->homePage = $homePage;
+        $this->checkout = $checkout;
+        $this->repositoryChannel = $repositoryChannel;
+        $this->repositoryLocale = $repositoryLocale;
     }
 
     /** @var string */

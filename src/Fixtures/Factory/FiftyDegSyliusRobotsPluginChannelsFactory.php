@@ -8,10 +8,13 @@ use Sylius\Bundle\CoreBundle\Fixture\Factory\ChannelExampleFactory;
 use Sylius\Bundle\CoreBundle\Fixture\OptionsResolver\LazyOption;
 use Sylius\Component\Channel\Factory\ChannelFactoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,12 +29,41 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
     /** @var ChannelFactoryInterface */
     private $channelFactory;
 
+    private RepositoryInterface $localeRepository;
+
+    private RepositoryInterface $currencyRepository;
+
+    private RepositoryInterface $zoneRepository;
+
+    private ?TaxonRepositoryInterface $taxonRepository;
+
+    private ?FactoryInterface $shopBillingDataFactory;
+
     public function __construct(
         ChannelFactoryInterface $channelFactory,
-        private RepositoryInterface $localeRepository,
-        private RepositoryInterface $currencyRepository,
+        RepositoryInterface $localeRepository,
+        RepositoryInterface $currencyRepository,
+        RepositoryInterface $zoneRepository,
+        ?TaxonRepositoryInterface $taxonRepository = null,
+        ?FactoryInterface $shopBillingDataFactory = null
     ) {
         $this->channelFactory = $channelFactory;
+        $this->localeRepository = $localeRepository;
+        $this->currencyRepository = $currencyRepository;
+        $this->zoneRepository = $zoneRepository;
+        $this->taxonRepository = $taxonRepository;
+        $this->shopBillingDataFactory = $shopBillingDataFactory;
+        
+        parent::__construct(
+            $channelFactory,
+            $localeRepository,
+            $currencyRepository,
+            $zoneRepository,
+            $taxonRepository,
+            $shopBillingDataFactory
+        );
+
+        
 
         $this->faker = \Faker\Factory::create();
 

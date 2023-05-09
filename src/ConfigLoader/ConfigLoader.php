@@ -8,9 +8,12 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 final class ConfigLoader implements ConfigLoaderInterface
 {
+    private ParameterBag $parameterBag;
+
     public function __construct(
-        private ParameterBag $parameterBag,
+        ParameterBag $parameterBag
     ) {
+        $this->parameterBag = $parameterBag;
     }
 
     public function getRobotsByChannelCode(string $channelCode): string
@@ -35,7 +38,10 @@ final class ConfigLoader implements ConfigLoaderInterface
         throw new \Exception('no Default Configuration or too many default configuration for robots yaml');
     }
 
-    private function getParam(string $paramName): mixed
+    /**
+     * @return array|bool|string|int|float|null
+     */
+    private function getParam(string $paramName)
     {
         return $this->parameterBag->has($paramName)
             ? $this->parameterBag->get($paramName)
