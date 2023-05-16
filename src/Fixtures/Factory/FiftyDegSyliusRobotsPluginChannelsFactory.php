@@ -226,7 +226,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
     }
 
     /** @param array<array-key, mixed> $options */
-    public function checkOptionsFormats(array $options = []): string
+    public function checkOptionsFormats(array $options = []): ?string
     {
         if (isset($options['locales'])) {
             /** @var array<array-key, string> $optionsLocales */

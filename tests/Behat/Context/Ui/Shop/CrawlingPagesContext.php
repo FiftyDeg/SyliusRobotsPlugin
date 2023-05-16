@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
+use Sylius\Component\Core\Model\Channel;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Context\BaseContext;
 use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\Checkout;
@@ -61,7 +63,7 @@ final class CrawlingPagesContext extends BaseContext implements Context
         $this->channelName = '';
     }
 
-    private function checkUrlWithAllChannelsAndRobots($pageToCheck)
+    private function checkUrlWithAllChannelsAndRobots(SymfonyPage $pageToCheck): array
     {
         $allChannels = $this->repositoryChannel->findAll();
         $resultAllow = true;
@@ -136,7 +138,7 @@ final class CrawlingPagesContext extends BaseContext implements Context
         );
     }
 
-    private function checkUrlWithChannelRobots($channel, $page)
+    private function checkUrlWithChannelRobots(Channel $channel, SymfonyPage $page): array
     {
         $allLocales = $this->repositoryLocale->findAll();
         $allLocalesCodes = [];
@@ -164,12 +166,17 @@ final class CrawlingPagesContext extends BaseContext implements Context
         if ($this->checkUrlWithRobot($pagePath, $userAgentDirective)) {
             $allowIndex = 'allow';
         }
+
+        if (!isset($result[$allowIndex]) || !is_array($result[$allowIndex])) {
+            $result[$allowIndex] = [];
+        }
+        
         $result[$allowIndex][$userAgentDirective->userAgent] = ['pagePath' => $pagePath, 'userAgent' => $userAgentDirective];
 
         return $result;
     }
 
-    private function buildUserAgentDirective($disAllowItem, $pagePath)
+    private function buildUserAgentDirective(string $disAllowItem, string $pagePath): string
     {
         $disAllowItemToUse = strtolower(rtrim($disAllowItem, '/'));
         $disAllowComponents = explode('/', $disAllowItemToUse);
@@ -184,7 +191,7 @@ final class CrawlingPagesContext extends BaseContext implements Context
         return implode('/', $disAllowComponents);
     }
 
-    private function checkUrlWithRobot($pagePath, $userAgent)
+    private function checkUrlWithRobot(string $pagePath, object $userAgent): bool
     {
         if ($userAgent->disAllow &&
             count($userAgent->disAllow) > 0) {
@@ -199,7 +206,7 @@ final class CrawlingPagesContext extends BaseContext implements Context
         return true;
     }
 
-    private function getAllUserAgentDirectives($channel, $pageScheme)
+    private function getAllUserAgentDirectives(Channel $channel, string $pageScheme): array
     {
         $realPagePath = $pageScheme . '://' . $channel->getHostname() . '/';
         $robotsUrl = $realPagePath . 'robots.txt';
@@ -242,7 +249,7 @@ final class CrawlingPagesContext extends BaseContext implements Context
         return $allUserAgents;
     }
 
-    private function buildErrorsString($checkRobots, $channel)
+    private function buildErrorsString(array $checkRobots, Channel $channel): string
     {
         $errorsString = '';
         if (count($checkRobots) > 0) {

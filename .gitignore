@@ -18,3 +18,5 @@
 .DS_store
 
 /composer.lock
+/symfony.lock
+/tests/Application/yarn.lock
