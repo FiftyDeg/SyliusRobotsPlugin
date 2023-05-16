@@ -51,11 +51,7 @@ class FiftyDegSyliusRobotsPluginChannelsFixture extends AbstractFixture
 
             $checkOptions = $this->channelsFactory->checkOptionsFormats($newChannelOptions);
 
-            if (is_null($checkOptions)) {
-                throw new \Exception('Some errors occurred while checking options formats.');
-            }
-
-            if ($checkOptions !== '-1') {
+            if (!is_null($checkOptions)) {
                 throw new \Exception($checkOptions);
             }
 

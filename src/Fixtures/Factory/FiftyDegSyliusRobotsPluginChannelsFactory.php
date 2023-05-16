@@ -273,6 +273,6 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
             }
         }
 
-        return '-1';
+        return null;
     }
 }
