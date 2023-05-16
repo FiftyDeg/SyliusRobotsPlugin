@@ -1,7 +1,7 @@
 #########################################
 # PHP ###################################
 #########################################
-FROM php:8.1.12-fpm-bullseye AS php-fpm
+FROM php:7.4-fpm-bullseye AS php-fpm
 
 RUN apt-get update && apt-get install -y \
     cron \
@@ -75,7 +75,7 @@ RUN docker-php-ext-install \
 RUN docker-php-ext-install gmp \
     && docker-php-ext-enable gmp
 
-RUN pecl install xdebug \
+RUN pecl install xdebug-3.1.5 \
     && docker-php-ext-enable xdebug
 
 RUN apt-get update && apt-get -y --no-install-recommends install git && \

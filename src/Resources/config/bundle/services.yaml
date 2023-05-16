@@ -1,0 +1,24 @@
+services:
+    fiftydeg.fixture.fiftydeg_sylius_robots_plugin_channels_fixture:
+        class: FiftyDeg\SyliusRobotsPlugin\Fixtures\FiftyDegSyliusRobotsPluginChannelsFixture
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@fiftydeg.factory.fiftydeg_sylius_robots_plugin_channels_factory"
+            - "@sylius.repository.channel"
+        tags:
+            - {name: "sylius_fixtures.fixture"}
+    fiftydeg.factory.fiftydeg_sylius_robots_plugin_channels_factory:
+        class: FiftyDeg\SyliusRobotsPlugin\Fixtures\Factory\FiftyDegSyliusRobotsPluginChannelsFactory
+        arguments:
+            - "@sylius.factory.channel"
+            - "@sylius.repository.locale"
+            - "@sylius.repository.currency"
+            - "@sylius.repository.zone"
+            - "@sylius.repository.taxon"
+            - "@sylius.factory.shop_billing_data"
+    fiftydeg.listener.fiftydeg_sylius_robots_plugin_channels_listener:
+        class: FiftyDeg\SyliusRobotsPlugin\Fixtures\Listener\FiftyDegSyliusRobotsPluginChannelsListener
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - {name: "sylius_fixtures.listener"}

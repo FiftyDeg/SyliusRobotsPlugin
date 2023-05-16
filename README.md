@@ -19,69 +19,66 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 
 1. Execute `cd ./.docker && ./bin/start_dev.sh`
 2. Configure `/etc/hosts` and add the `127.0.0.1    syliusplugin.local` new entry
-2. Open your browser and go to `https://syliusplugin.local`
+3. Add `FiftyDeg\SyliusRobotsPlugin\FiftyDegSyliusRobotsPlugin::class => ['all' => true],` into /config/bundles.php 
+4. Add `- { resource: "./packages/<the-environment-you-are-using:dev|test|prod>/fiftydeg_sylius_robots_channels_suite.yaml" }` into /config/services.yaml
+5. In /config/packages/<the-environment-you-are-using:dev|test|prod>/fifty_deg_sylius_robots.yaml insert your robots configurations, detailed per channel.
+6. Remember to add all the channel hostname that you need into docker-compose.yml, under `extra_hosts`, specifying also the exact port. For example `mycompany.com:127.0.0.1`
+
+
+#### In case you need some extra channel for testing, you could add any automatically with a Fixture
+7. In /config/packages/<the-environment-you-are-using:dev|test|prod>/fiftydeg_sylius_robots_channels_suite.yaml, you can add all the channels you need automatically, with a Fixture.
+8. Add the line `&& yes | php bin/console sylius:install --no-interaction --verbose --env ${APP_ENV}` in docker-compose.yml, after the line `&& yes | php bin/console sylius:install:check-requirements`, where ${APP_ENV} should be replace with the environment you are using right now, i.e. `dev|test|prod`
+and the line `&& yes | php bin/console sylius:fixtures:load fiftydeg_sylius_robots_plugin_channels_suite --no-interaction` after `&& yes | php bin/console sylius:fixtures:load default --no-interaction`
+
+
+### fiftydeg_sylius_robots_channels_suite.yaml Example
+
+```
+sylius_fixtures:
+  suites:
+    fiftydeg_sylius_robots_plugin_channels_suite:
+      listeners:
+        fiftydeg_sylius_robots_plugin_channels_listener: null
+      fixtures:
+        fiftydeg_sylius_robots_plugin_channels_fixture:
+          options:
+            - code: FASHION_WEB
+              hostname: syliusplugin.local
+            - name: DISALLOW CHECKOUT
+              code: DISALLOW_CHECKOUT
+              locales:
+                - en_US
+              currencies:
+                - USD
+              hostname: syliusplugindc.local
+            - name: DISALLOW CHECKOUT2
+              code: DISALLOW_CHECKOUT2
+              locales:
+                - en_US
+              currencies:
+                - USD
+              hostname: syliusplugindc2.local
+            - name: DISALLOW CHECKOUT3
+              code: DISALLOW_CHECKOUT3
+              locales:
+                - en_US
+              currencies:
+                - USD
+              hostname: syliusplugindc3.local
+```
 
 ## Usage
 
 ### Running plugin tests
 
-  - PHPUnit
+  - Run `cd .docker && ./bin/start_test.sh` in order to start docker compose in test mode
+  - Wait docker to be up and running...
+  - Run `cd .docker && ./bin/php_test.sh` in order to start static analysis and Behat tests
 
-    ```bash
-    vendor/bin/phpunit
-    ```
+#### BDD
+A suite for BDD testing is already present; it is registered in `/tests/Behat/Resources/services.yml`, you cand find the features in `/features`, the contexts in `/tests/Behat/Resources/suites.yml`, and the asscoiated PHP code in /tests/Behat/Context/Ui/Shop.
+It works on two hidden divs in your project footer; one should be cached and the other one not; but you can modify the test as you wish.
 
-  - PHPSpec
+Lastly, you have to add `config/packages/<environmente-where-you-are-working-in>/fiftydeg_sylius_cache_plugin.yaml`, as described before; so you can turn on and off che cache for the two divs in thw twigs specified before.
 
-    ```bash
-    vendor/bin/phpspec run
-    ```
 
-  - Behat (non-JS scenarios)
-
-    ```bash
-    vendor/bin/behat --strict --tags="~@javascript"
-    ```
-
-  - Behat (JS scenarios)
- 
-    1. [Install Symfony CLI command](https://symfony.com/download).
- 
-    2. Start Headless Chrome:
-    
-      ```bash
-      google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1
-      ```
-    
-    3. Install SSL certificates (only once needed) and run test application's webserver on `127.0.0.1:8080`:
-    
-      ```bash
-      symfony server:ca:install
-      APP_ENV=test symfony server:start --port=8080 --dir=tests/Application/public --daemon
-      ```
-    
-    4. Run Behat:
-    
-      ```bash
-      vendor/bin/behat --strict --tags="@javascript"
-      ```
-    
-  - Static Analysis
-  
-    - Psalm
-    
-      ```bash
-      vendor/bin/psalm
-      ```
-      
-    - PHPStan
-    
-      ```bash
-      vendor/bin/phpstan analyse -c phpstan.neon -l max src/  
-      ```
-
-  - Coding Standard
-  
-    ```bash
-    vendor/bin/ecs check
-    ```

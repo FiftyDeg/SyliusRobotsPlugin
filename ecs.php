@@ -1,21 +1,16 @@
 <?php
 
-declare(strict_types=1);
-
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
-use Symplify\EasyCodingStandard\Config\ECSConfig;
+use PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->paths([
-        __DIR__ . '/src',
-        __DIR__ . '/tests/Behat',
-        __DIR__ . '/ecs.php',
-    ]);
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import('vendor/sylius-labs/coding-standard/ecs.php');
 
-    $ecsConfig->import('vendor/sylius-labs/coding-standard/ecs.php');
-
-    $ecsConfig->skip([
+    $containerConfigurator->parameters()->set(Option::SKIP, [
         VisibilityRequiredFixer::class => ['*Spec.php'],
     ]);
-};
 
+    $containerConfigurator->services()->set(BinaryOperatorSpacesFixer::class)->call('configure', [[]]);
+};

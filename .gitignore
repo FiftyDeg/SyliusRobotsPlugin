@@ -1,11 +1,8 @@
 /vendor/
 /node_modules/
-/composer.lock
 
 /etc/build/*
 !/etc/build/.gitignore
-
-/tests/Application/yarn.lock
 
 /.phpunit.result.cache
 /behat.yml
@@ -19,3 +16,7 @@
 /node_modules
 
 .DS_store
+
+/composer.lock
+/symfony.lock
+/tests/Application/yarn.lock
