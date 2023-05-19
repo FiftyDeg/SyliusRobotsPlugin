@@ -87,10 +87,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
                 return $optCode;
             })
             ->setDefault('hostname', function (Options $options): string {
-                /** @var string $optHostName */
-                $optHostName = $options['hostname'];
-
-                return $optHostName;
+                return 'localhost';
             })
             ->setDefault('default_locale', function (Options $options): ResourceInterface {
                 /** @var ResourceInterface|null $localeRepo */
@@ -135,8 +132,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
     public function create(array $options = []): ChannelInterface
     {
         if (!isset($options['name']) ||
-            !isset($options['code']) ||
-            !isset($options['hostname'])) {
+            !isset($options['code'])) {
             throw new \Exception('Please check you yaml configuration file, it seems some channel you can try to add, is missing some fundamental data');
         }
 

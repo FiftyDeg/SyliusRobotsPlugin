@@ -12,6 +12,11 @@ services:
         parent: sylius.behat.symfony_page
         public: false
 
+    tests.fifty_deg.sylius_robots_plugin.behat.context.ui.shop.channel_context_setter:
+        class: Sylius\Behat\Service\Setter\ChannelContextSetter
+        arguments:
+            - "@sylius.behat.cookie_setter"
+
     tests.fifty_deg.sylius_robots_plugin.behat.context.ui.shop.crawling_pages_context:
         class: Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Context\Ui\Shop\CrawlingPagesContext
         arguments:
@@ -20,4 +25,5 @@ services:
             - "@tests.fifty_deg.sylius_robots_plugin.behat.page.shop.checkout"
             - "@sylius.repository.channel"
             - "@sylius.repository.locale"
+            - "@tests.fifty_deg.sylius_robots_plugin.behat.context.ui.shop.channel_context_setter"
     

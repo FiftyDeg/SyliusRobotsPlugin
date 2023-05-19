@@ -10,27 +10,23 @@ sylius_fixtures:
         fiftydeg_sylius_robots_plugin_channels_fixture:
           options:
             - code: FASHION_WEB
-              hostname: syliusplugin.local
             - name: DISALLOW CHECKOUT
               code: DISALLOW_CHECKOUT
               locales:
                 - en_US
               currencies:
                 - USD
-              hostname: syliusplugindc.local
             - name: DISALLOW CHECKOUT2
               code: DISALLOW_CHECKOUT2
               locales:
                 - en_US
               currencies:
                 - USD
-              hostname: syliusplugindc2.local
             - name: DISALLOW CHECKOUT3
               code: DISALLOW_CHECKOUT3
               locales:
                 - en_US
               currencies:
                 - USD
-              hostname: syliusplugindc3.local
                                 
                             
