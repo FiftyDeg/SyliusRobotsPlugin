@@ -1,4 +1,4 @@
-<p align="center">
+p align="center">
     <a href="https://sylius.com" target="_blank">
         <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
     </a>
@@ -22,7 +22,7 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 3. Add `FiftyDeg\SyliusRobotsPlugin\FiftyDegSyliusRobotsPlugin::class => ['all' => true],` into /config/bundles.php 
 4. Add `- { resource: "./packages/<the-environment-you-are-using:dev|test|prod>/fiftydeg_sylius_robots_channels_suite.yaml" }` into /config/services.yaml
 5. In /config/packages/<the-environment-you-are-using:dev|test|prod>/fifty_deg_sylius_robots.yaml insert your robots configurations, detailed per channel.
-6. Remember to add all the channel hostname that you need into docker-compose.yml, under `extra_hosts`, specifying also the exact port. For example `mycompany.com:127.0.0.1`
+6. In case you wish to have more channels in different hostname, remember to add all the channel hostname that you need into docker-compose.yml, under `extra_hosts`, specifying also the exact port. For example `mycompany.com:127.0.0.1`
 
 
 #### In case you need some extra channel for testing, you could add any automatically with a Fixture
