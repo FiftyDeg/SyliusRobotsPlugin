@@ -6,6 +6,12 @@ namespace FiftyDeg\SyliusRobotsPlugin\ConfigLoader;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
+/**
+ * This class implements a configuration loader,
+ * in other words it implements all the functions needed to load the data about the crawler bots intended to be tested.
+ *
+ * @author Marco Pistorello <marco.pistorello@fiftydeg.com>
+ */
 final class ConfigLoader implements ConfigLoaderInterface
 {
     private ParameterBag $parameterBag;
@@ -16,6 +22,16 @@ final class ConfigLoader implements ConfigLoaderInterface
         $this->parameterBag = $parameterBag;
     }
 
+    /**
+     * Iterates through the var channels in the configuration file, fifty_deg_sylius_robots.yaml,
+     * until it finds the correct channel code (code variable) equal to $channelCode
+     *
+     * Returns the configuration variables, specified for each crawler bot
+     * 
+     * @param string $channelCode
+     * @return string
+     * @throws \Exception If $channelCode is not found in the configuration file, fifty_deg_sylius_robots.yaml
+     */
     public function getRobotsByChannelCode(string $channelCode): string
     {
         /** @var array<int, array<string, string>> $channelsConf */
