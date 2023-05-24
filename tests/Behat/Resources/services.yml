@@ -25,5 +25,4 @@ services:
             - "@tests.fifty_deg.sylius_robots_plugin.behat.page.shop.checkout"
             - "@sylius.repository.channel"
             - "@sylius.repository.locale"
-            - "@tests.fifty_deg.sylius_robots_plugin.behat.context.ui.shop.channel_context_setter"
     

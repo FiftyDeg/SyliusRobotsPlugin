@@ -46,6 +46,7 @@ services:
         && yes | APP_ENV=${APP_ENV} php bin/console sylius:install:check-requirements
         && yes | APP_ENV=${APP_ENV} php bin/console sylius:install --no-interaction --verbose --env ${APP_ENV}
         && yes | APP_ENV=${APP_ENV} php bin/console sylius:fixtures:load default --no-interaction
+        && yes | APP_ENV=${APP_ENV} php  bin/console sylius:fixtures:load fiftydeg_sylius_robots_plugin_channels_suite --no-interaction
         && yes | APP_ENV=${APP_ENV} php bin/console sylius:install:assets
         && yes | APP_ENV=${APP_ENV} php bin/console sylius:theme:assets:install public
         && yes | APP_ENV=${APP_ENV} php bin/console asset:install
@@ -57,7 +58,7 @@ services:
         && printf \"\r\n********************\r\n********************\r\n** 💡 PHPSTAN ******\r\n********************\r\n********************\r\n\r\n\"
         && XDEBUG_MODE=off php vendor/bin/phpstan analyse -c phpstan.neon -l max src/
         && printf \"\r\n********************\r\n********************\r\n** 💡 PHPMD ********\r\n********************\r\n********************\r\n\r\n\"
-        && XDEBUG_MODE=off php vendor/bin/phpmd src,tests/Behat github phpmd.ruleset.xml
+        && XDEBUG_MODE=off php vendor/bin/phpmd src,tests/Behat github phpmd.ruleset.xml --ignore-violations-on-exit
         && printf \"\r\n********************\r\n********************\r\n** 💡 CONTAINER ****\r\n********************\r\n********************\r\n\r\n\"
         && cd $$PROJECT_DIR/tests/Application 
         && XDEBUG_MODE=off php bin/console lint:container

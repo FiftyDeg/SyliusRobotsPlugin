@@ -13,7 +13,6 @@ use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Context\BaseContext;
 use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\Checkout;
 use Tests\FiftyDeg\SyliusRobotsPlugin\Behat\Page\Shop\HomePage;
 use Webmozart\Assert\Assert;
-use Sylius\Behat\Service\Setter\ChannelContextSetter;
 
 final class CrawlingPagesContext extends BaseContext implements Context
 {
@@ -21,20 +20,17 @@ final class CrawlingPagesContext extends BaseContext implements Context
     private Checkout $checkout;
     private ChannelRepositoryInterface $repositoryChannel;
     private RepositoryInterface $repositoryLocale;
-    private ChannelContextSetter $channelContextSetter;
 
     public function __construct(
         HomePage $homePage,
         Checkout $checkout,
         ChannelRepositoryInterface $repositoryChannel,
-        RepositoryInterface $repositoryLocale,
-        ChannelContextSetter $channelContextSetter
+        RepositoryInterface $repositoryLocale
     ) {
         $this->homePage = $homePage;
         $this->checkout = $checkout;
         $this->repositoryChannel = $repositoryChannel;
         $this->repositoryLocale = $repositoryLocale;
-        $this->channelContextSetter = $channelContextSetter;
     }
 
     /** @var string */
@@ -210,35 +206,11 @@ final class CrawlingPagesContext extends BaseContext implements Context
         return true;
     }
 
-    private function switchAction(Request $request): Response
-    {
-
-        $reqHostname    = $request->get('_hostname');
-        $reqLocale      = $request->get('_locale');
-        $reqCurrency    = $request->get('_currency');
-        $countryCode    = $request->get('_country');
-
-        $this->localeSwitcher->handle($request, $reqLocale);
-
-        /** @var ChannelInterface $channel */
-        $channel = $this->channelContext->getChannel();
-
-        $this->currencyStorage->set($channel, $reqCurrency);
-
-        $this->storage->set(self::COUNTRY_COOKIE, $countryCode);
-
-        $redirectUrl = "//{$reqHostname}/$reqLocale";
-
-        return new RedirectResponse($redirectUrl);
-    }
-
     private function getAllUserAgentDirectives(Channel $channel, string $pageScheme): array
     {
-        $this->channelContextSetter->setChannel($channel);
-
         $channelHostname = $channel->getHostname();
-        $realPagePath = $pageScheme . '://' . $channelHostname . '/';
-        $robotsUrl = $realPagePath . 'robots.txt';
+        $realPagePath = getenv('CONTAINER_NAME') . '/';
+        $robotsUrl = $pageScheme . '://' . $realPagePath . 'robots.txt/?_channel_code=' . $channel->getCode();
         $userAgent = null;
         $allUserAgents = [];
 
@@ -246,6 +218,12 @@ final class CrawlingPagesContext extends BaseContext implements Context
             'ssl' => [
                     'verify_peer' => false,
                     'verify_peer_name' => false,
+            ],
+            'http' => [
+                'protocol_version' => 1.1,
+                'header'           => [
+                    'Connection: close',
+                ],
             ],
         ];
 

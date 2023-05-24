@@ -33,6 +33,7 @@ services:
       - PHP_INI_MEMORY_LIMIT=2G
       - PHP_INI_ERROR_REPORTING=E_ALL
       - COMPOSER_HOME=$HOME/.config/composer
+      - CONTAINER_NAME=${COMPOSE_PROJECT_NAME}_nginx
     expose:
       - 9000
     volumes:
