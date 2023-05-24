@@ -1,6 +1,9 @@
-p align="center">
+<p align="center">
     <a href="https://sylius.com" target="_blank">
         <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+    </a>
+    <a href="https://sylius.com" target="_blank">
+        <img src="doc/fd.png" />
     </a>
 </p>
 
@@ -10,15 +13,26 @@ p align="center">
 
 
 ## About US
+------------------
 
-<a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer"><i class="fa fa-linkedin"></i></a>
+We want to unleash people's potential by returning the most important resource: time!
+------------------
+We think that time is the most important resource, for this reason we want to free it by assigning the right professionalism to the required task, whether it is a digital project for third parties or an own software.
+
+<a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer">Linked In</a>
 
 ## Documentation
+------------------
 
 For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,
 there you will find the <a href="https://docs.sylius.com/en/latest/plugin-development-guide/index.html">Plugin Development Guide</a>, that is full of examples.
 
+<ul>
+<li><a href="doc/installation.md">Installation</a></li>
+</ul>
+
 ## Quickstart Installation
+------------------
 
 ### Installing with Composer
 
@@ -27,6 +41,7 @@ composer require fifty-deg/sylius-robots-plugin
 ```
 
 ## Development
+------------------
 
 ### Docker
 
