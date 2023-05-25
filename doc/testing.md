@@ -1,16 +1,24 @@
-## Installation
+## Testing
 ------------------
 
-<a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer">Back</a>
-
-1. Installing with Composer
+1. Start docker compose in test mode
 ```
-$ composer require fifty-deg/sylius-robots-plugin
+$ cd .docker && ./bin/start_test.sh
 ```
 
-2. Add `FiftyDeg\SyliusRobotsPlugin\FiftyDegSyliusRobotsPlugin::class => ['all' => true],` into /config/bundles.php 
+2. Wait docker to be up and running...
 
-3. In `/config/packages/fifty_deg_sylius_robots.yaml` insert your robots configurations, containing data similar to the ones described below, where - for a variable set of channels - there is linked robots to use.
+3. Start static analysis and Behat tests
+```
+$ cd .docker && ./bin/php_test.sh
+```
+<br/>
+
+### BDD
+------------
+A suite for BDD testing is already present; it is registered in `/tests/Behat/Resources/services.yml`, you can find the features in `/features`, the contexts registered in `/tests/Behat/Resources/suites.yml`, and the asscoiated PHP code in /tests/Behat/Context/Ui/Shop.
+
+Lastly, you have to add `tests/Application/config/packages/test/fifty_deg_sylius_robots.yaml`, containing data similar to the ones described below, where - for a variable set of channels - there is linked robots to use.
 
 ```
 fifty_deg_sylius_robots:
@@ -96,9 +104,4 @@ fifty_deg_sylius_robots:
 
                 User-agent: Applebot
                 Disallow: /checkout/*
-```
-
-4. Clear application cache by using command:
-```
-$ bin/console cache:clear
 ```

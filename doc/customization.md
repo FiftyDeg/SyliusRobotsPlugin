@@ -1,16 +1,7 @@
-## Installation
+## Customization
 ------------------
 
-<a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer">Back</a>
-
-1. Installing with Composer
-```
-$ composer require fifty-deg/sylius-robots-plugin
-```
-
-2. Add `FiftyDeg\SyliusRobotsPlugin\FiftyDegSyliusRobotsPlugin::class => ['all' => true],` into /config/bundles.php 
-
-3. In `/config/packages/fifty_deg_sylius_robots.yaml` insert your robots configurations, containing data similar to the ones described below, where - for a variable set of channels - there is linked robots to use.
+For now the only customizations you can do are in `/config/packages/fifty_deg_sylius_robots.yaml`, the file containing data similar to the ones described below, where - for a variable set of channels - there is linked robots to use.
 
 ```
 fifty_deg_sylius_robots:
