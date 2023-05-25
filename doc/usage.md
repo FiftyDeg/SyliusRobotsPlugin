@@ -1,9 +1,13 @@
-## Customization
+## Usage
 ------------------
 
 <a href="../README.md" target="_blank">Back</a>
-
-For now the only customizations you can do are in `/config/packages/fifty_deg_sylius_robots.yaml`, the file containing data similar to the ones described below, where - for a variable set of channels - there is linked robots to use.
+  
+### Setup robots per channel
+Create the `config/packages/fifty_deg_sylius_robots.yaml` file (you can also create it per environment) in order to configure per channel robots settings.  
+`robots.txt` will be available at `https://example.com/robots.txt`.  
+  
+Below, a sample configuration:  
 
 ```
 fifty_deg_sylius_robots:
@@ -89,9 +93,4 @@ fifty_deg_sylius_robots:
 
                 User-agent: Applebot
                 Disallow: /checkout/*
-```
-
-4. Clear application cache by using command:
-```
-$ bin/console cache:clear
 ```

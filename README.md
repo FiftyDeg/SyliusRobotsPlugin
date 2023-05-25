@@ -21,7 +21,7 @@ We want to unleash people's potential by returning the most important resource: 
 ------------------
 We think that time is the most important resource, for this reason we want to free it by assigning the right professionalism to the required task, whether it is a digital project for third parties or an own software.
 
-<a href="../README.md" target="_blank">Back In</a>
+<a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer">Linked In</a>
 
 ## Documentation
 ------------------
@@ -31,6 +31,7 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 
 <ul>
 <li><a href="doc/installation.md">Installation</a></li>
+<li><a href="doc/usage.md">Usage</a></li>
 <li><a href="doc/customization.md">Customization</a></li>
 <li><a href="doc/development.md">Development</a></li>
 <li><a href="doc/testing.md">Testing</a></li>
