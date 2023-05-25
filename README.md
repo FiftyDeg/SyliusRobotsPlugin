@@ -36,3 +36,17 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 <li><a href="doc/development.md">Development</a></li>
 <li><a href="doc/testing.md">Testing</a></li>
 </ul>
+
+## License
+------------------
+This plugin's source code is completely free and released under the terms of the MIT license.
+<br/>
+<br/>
+<br/>
+<br/>
+
+## Fifty Deg
+------------------
+<a href="https://fiftydeg.com/" target="_blank">fiftydeg.com</a>
+
+<a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer">Linked In</a>
