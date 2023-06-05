@@ -7,9 +7,9 @@
 $ cd .docker && ./bin/start_test.sh
 ```
 
-1. Wait docker to be up and running...
+2. Wait docker to be up and running...
 
-2. Start static analysis and Behat tests
+3. Run start static analysis and Behat tests
 ```
 $ cd .docker && ./bin/php_test.sh
 ```
@@ -17,11 +17,12 @@ $ cd .docker && ./bin/php_test.sh
 
 ### BDD
 ------------
-A suite for BDD testing is already present; it is registered in `/tests/Behat/Resources/services.yml`, you can find the features in `/features`, the contexts registered in `/tests/Behat/Resources/suites.yml`, and the asscoiated PHP code in /tests/Behat/Context/Ui/Shop.
+A suite for BDD testing is defined in `tests/Behat/Resources/services.yml`.  
+Features are defined in `features`, and contexts in `tests/Behat/Resources/suites.yml`.
 
-Lastly, you have to add `tests/Application/config/packages/test/fifty_deg_sylius_robots.yaml`, containing data similar to the ones described below, where - for a variable set of channels - there is linked robots to use.
+Test configuration is placed in `tests/Application/config/packages/test/fifty_deg_sylius_robots.yaml`, below a sample configuration.
 
-```
+```yaml
 fifty_deg_sylius_robots:
     channels:
         -   code: 'FASHION_WEB'
