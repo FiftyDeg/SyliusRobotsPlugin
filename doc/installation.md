@@ -2,15 +2,14 @@
 
 ## Installation
 
-1. Installing with Composer
+1. Install with Composer
 ```bash
-$ composer require fifty-deg/sylius-robots-plugin
+composer require fifty-deg/sylius-robots-plugin
 ```
 
-1. Add `FiftyDeg\SyliusRobotsPlugin\FiftyDegSyliusRobotsPlugin::class => ['all' => true],` into `/config/bundles.php`
+2. Add `FiftyDeg\SyliusRobotsPlugin\FiftyDegSyliusRobotsPlugin::class => ['all' => true],` into `/config/bundles.php`
 
-2. Register routes and vendor settings
-In order to register routes, add the following code snippet in `config/routes.yaml`:  
+3. Register routes and vendor settings by adding the following code snippet in `config/routes.yaml`:  
 ```yaml
 fiftydeg_sylius_robots_plugin:
     resource: "@FiftyDegSyliusRobotsPlugin/Resources/config/routes.yaml"
@@ -18,4 +17,4 @@ fiftydeg_sylius_robots_plugin:
 
 ---
 
-Next: <a href="./usage.md" target="_blank">Usage</a>
+<a href="./usage.md" target="_blank">Next: Usage</a>
