@@ -9,10 +9,12 @@ use Sylius\Bundle\FixturesBundle\Listener\AbstractListener;
 use Sylius\Bundle\FixturesBundle\Listener\AfterFixtureListenerInterface;
 use Sylius\Bundle\FixturesBundle\Listener\FixtureEvent;
 
-/*
-It's a good idea to not throw this file away, because it could go implement great functionalities, especially before and after the fixture execution.
-*/
-
+/**
+ * This class implements a Listener linked to the FiftyDegSyliusRobotsPluginChannelsFixture, 
+ * triggered with specified events, listed in AbstractListener
+ *
+ * @author Marco Pistorello <marco.pistorello@fiftydeg.com>
+ */
 final class FiftyDegSyliusRobotsPluginChannelsListener extends AbstractListener implements AfterFixtureListenerInterface
 {
     /** @var ObjectManager */
@@ -28,11 +30,14 @@ final class FiftyDegSyliusRobotsPluginChannelsListener extends AbstractListener 
         return 'fiftydeg_sylius_robots_plugin_channels_listener';
     }
 
+    /**
+     * Implements the actions to run after FiftyDegSyliusRobotsPluginChannelsFixture has been executed.
+     * 
+     * @param FixtureEvent $fixtureEvent
+     * @param array $options
+     * @return void
+     */
     public function afterFixture(FixtureEvent $fixtureEvent, array $options): void
     {
-        /*
-        Even if this function is empty and all this file could be useless,
-        it's a good idea to not throw it away, because it could go implement great functionalities, especially before and after the fixture execution.
-        */
     }
 }
