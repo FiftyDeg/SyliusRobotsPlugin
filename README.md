@@ -2,6 +2,8 @@
     <a href="https://sylius.com" target="_blank">
         <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
     </a>
+</p>
+<p align="center">
     <a href="https://fiftydeg.com" target="_blank">
         <img src="doc/images/fd.png" />
     </a>
@@ -21,7 +23,6 @@ We are an Italian Digital Company focused on:
 - <a href="https://tinees.com/join-tinees/" target="_blank">Tinees</a>, our core project that aims to safeguard and sensitize people on the cultural, artistic and historical heritage of a nation.
 
 ## Documentation
-------------------
 
 For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,
 there you will find the <a href="https://docs.sylius.com/en/latest/plugin-development-guide/index.html">Plugin Development Guide</a>, that is full of examples.
@@ -35,7 +36,6 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 </ul>
 
 ## License
-------------------
 This plugin's source code is completely free and released under the terms of the MIT license.
 <br/>
 <br/>
@@ -43,7 +43,5 @@ This plugin's source code is completely free and released under the terms of the
 <br/>
 
 ## Get in touch
-------------------
 <a href="https://fiftydeg.com/" target="_blank">fiftydeg.com</a>
-
 <a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer">Linked In</a>
