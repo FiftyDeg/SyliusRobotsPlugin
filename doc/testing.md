@@ -1,16 +1,15 @@
-## Testing
-------------------
-
 <a href="../README.md" target="_blank">Back</a>
+
+## Testing
 
 1. Start docker compose in test mode
 ```
 $ cd .docker && ./bin/start_test.sh
 ```
 
-2. Wait docker to be up and running...
+1. Wait docker to be up and running...
 
-3. Start static analysis and Behat tests
+2. Start static analysis and Behat tests
 ```
 $ cd .docker && ./bin/php_test.sh
 ```

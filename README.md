@@ -15,13 +15,10 @@
 # Fifty Deg
 
 ## About US
-------------------
-
-We want to unleash people's potential by returning the most important resource: time!
-------------------
-We think that time is the most important resource, for this reason we want to free it by assigning the right professionalism to the required task, whether it is a digital project for third parties or an own software.
-
-<a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer">Linked In</a>
+We are an Italian Digital Company focused on:
+- e-commerce development
+- custom Web App implementation
+- <a href="https://tinees.com/join-tinees/" target="_blank">Tinees</a>, our core project that aims to safeguard and sensitize people on the cultural, artistic and historical heritage of a nation.
 
 ## Documentation
 ------------------
@@ -45,7 +42,7 @@ This plugin's source code is completely free and released under the terms of the
 <br/>
 <br/>
 
-## Fifty Deg
+## Get in touch
 ------------------
 <a href="https://fiftydeg.com/" target="_blank">fiftydeg.com</a>
 
