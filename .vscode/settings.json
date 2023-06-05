@@ -1,0 +1,41 @@
+{
+  "html.format.wrapAttributes": "force-expand-multiline",
+  "eslint.format.enable": true,
+  "eslint.alwaysShowStatus": true,
+  "stylelint.enable": true,
+  "[javascript]": {
+    "editor.maxTokenizationLineLength": 2500,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "files.exclude": {
+    "**/.git": false,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+  "stylelint.validate": [
+    "scss"
+  ],
+  "files.associations": {
+    "*.json.liquid": "json",
+    "*.yaml.liquid": "yaml",
+    "*.md.liquid": "markdown",
+    "*.js.liquid": "liquid-javascript",
+    "*.css.liquid": "liquid-css",
+    "*.scss.liquid": "liquid-scss",
+    "*.nginx.conf": "NGINX"
+  },
+  "phpstan.configFile": "phpstan.neon",
+  "phpstan.options": [
+    "--level=5",
+    "analyze src"
+  ],
+  "php.validate.enable": false,
+  "php.validate.executablePath": null
+}

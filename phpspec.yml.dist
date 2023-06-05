@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: FiftyDeg\SyliusRobotsPlugin
+        psr4_prefix: FiftyDeg\SyliusRobotsPlugin

@@ -1,0 +1,2 @@
+app_fifty_deg_robots:
+    resource: "@FiftyDegSyliusRobotsPlugin/Resources/config/routes.yaml"
