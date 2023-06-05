@@ -19,7 +19,10 @@ $ cd .docker && ./bin/php_test.sh
 A suite for BDD testing is defined in `tests/Behat/Resources/services.yml`.  
 Features are defined in `features`, and contexts in `tests/Behat/Resources/suites.yml`.
 
-Test configuration is placed in `tests/Application/config/packages/test/fifty_deg_sylius_robots.yaml`, below a sample configuration.
+## :warning: Configuration
+In order to test robots, we need to crawl pages: this means that, when performing a request to the server, the server will load the `dev` environment. 
+Therefore, to setup the test configuration, you need to update both `tests/Application/config/packages/test/fifty_deg_sylius_robots.yaml` and `tests/Application/config/packages/dev/fifty_deg_sylius_robots.yaml`.  
+Below, a sample configuration.
 
 ```yaml
 fifty_deg_sylius_robots:
@@ -42,7 +45,7 @@ fifty_deg_sylius_robots:
                 Disallow: /checkout/*
 
                 User-agent: YandexBot
-                Disallow: /checkout
+                Disallow: /checkout/*
 
                 User-agent: facebot
                             facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)
@@ -50,11 +53,11 @@ fifty_deg_sylius_robots:
                 Disallow: /checkout/*
 
                 User-agent: Applebot
-                Disallow: /checkout
+                Disallow: /checkout/*
         -   code: 'DISALLOW_CHECKOUT'
             robots_content: | 
                 User-agent: Googlebot
-                Disallow: /checkout/
+                Disallow: /checkout/*
 
                 User-agent: Bingbot
                 Disallow: /checkout/*
@@ -81,7 +84,7 @@ fifty_deg_sylius_robots:
     default:
         -   robots_content: | 
                 User-agent: Googlebot
-                Disallow: /checkout/*
+                Disallow: /
 
                 User-agent: Bingbot
                 Disallow: /checkout/*
