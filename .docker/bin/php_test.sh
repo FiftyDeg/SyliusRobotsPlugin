@@ -10,7 +10,7 @@ printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 STAND
 docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "XDEBUG_MODE=off php vendor/bin/ecs check"
 
 printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 PSALM ********\r\n********************\r\n********************\r\n\r\n${NC}"
-docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "XDEBUG_MODE=off php vendor/bin/psalm"
+docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "XDEBUG_MODE=off php vendor/bin/psalm --no-cache"
 
 printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 PHPSTAN ******\r\n********************\r\n********************\r\n\r\n${NC}"
 docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "XDEBUG_MODE=off php vendor/bin/phpstan analyse -c phpstan.neon -l max src/"
@@ -28,6 +28,6 @@ printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 YAML 
 docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "cd tests/Application && XDEBUG_MODE=off php bin/console lint:yaml  ../../src/ ./config ../Behat"
 
 printf "${CYAN}\r\n********************\r\n********************\r\n** 💡 BEHAT ********\r\n********************\r\n********************\r\n\r\n${NC}"
-docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "vendor/bin/behat --strict --tags='~@javascript'"
+docker exec -u root -it "fiftydeg_sylius_robots_plugin_php" bash -c "APP_ENV=test vendor/bin/behat --strict --tags='~@javascript'"
 
 exit 0

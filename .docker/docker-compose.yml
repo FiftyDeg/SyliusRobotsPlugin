@@ -2,11 +2,11 @@ version: "3"
 services:
 
   mysql:
-    container_name: "${COMPOSE_PROJECT_NAME}_mysql_${APP_ENV}"
+    container_name: "${COMPOSE_PROJECT_NAME}_mysql"
     build:
       context: ./mysql
     environment:
-      - MYSQL_DATABASE=${COMPOSE_PROJECT_NAME}_mysql_${APP_ENV}
+      - MYSQL_DATABASE=${COMPOSE_PROJECT_NAME}_mysql
       - MYSQL_ROOT_PASSWORD=mysql
     ports:
       - 3306:3306
@@ -60,14 +60,14 @@ services:
         && chown $HOST_UID:$HOST_GID -R ./var
         && chown $HOST_UID:$HOST_GID -R ./public
         && echo Checking requirements
-        && yes | APP_ENV=${APP_ENV} php  bin/console sylius:install:check-requirements
-        && yes | APP_ENV=${APP_ENV} php  bin/console sylius:install --no-interaction --verbose --env ${APP_ENV}
-        && yes | APP_ENV=${APP_ENV} php  bin/console sylius:fixtures:load default --no-interaction
-        && yes | APP_ENV=${APP_ENV} php  bin/console sylius:fixtures:load fiftydeg_sylius_robots_plugin_channels_suite --no-interaction
-        && yes | APP_ENV=${APP_ENV} php  bin/console sylius:install:assets
-        && yes | APP_ENV=${APP_ENV} php  bin/console sylius:theme:assets:install public
-        && yes | APP_ENV=${APP_ENV} php  bin/console asset:install
-        && yes | APP_ENV=${APP_ENV} php  bin/console doctrine:migrations:migrate
+        && yes | APP_ENV=${APP_ENV} php bin/console sylius:install:check-requirements
+        && yes | APP_ENV=${APP_ENV} php bin/console sylius:install --no-interaction --verbose --env ${APP_ENV}
+        && yes | APP_ENV=${APP_ENV} php bin/console sylius:fixtures:load default --no-interaction
+        && yes | APP_ENV=${APP_ENV} php bin/console sylius:fixtures:load fiftydeg_sylius_robots_plugin_channels_suite --no-interaction
+        && yes | APP_ENV=${APP_ENV} php bin/console sylius:install:assets
+        && yes | APP_ENV=${APP_ENV} php bin/console sylius:theme:assets:install public
+        && yes | APP_ENV=${APP_ENV} php bin/console asset:install
+        && yes | APP_ENV=${APP_ENV} php bin/console doctrine:migrations:migrate
         && php-fpm"
 
   nginx:
