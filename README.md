@@ -3,16 +3,19 @@
         <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
     </a>
 </p>
+
+<h1 align="center">Sylius Robots Plugin</h1>
+
+<p align="center">A Sylius plugin that allows configuring different robots.txt per each channel.</p>
+
+<br/>
+
+<p align="center">Developed with :heart: by</p>
 <p align="center">
     <a href="https://fiftydeg.com" target="_blank">
         <img src="doc/images/fd.png" />
     </a>
 </p>
-
-<h1 align="center">Sylius Robots Plugin</h1>
-
-<p align="center">A Sylius plugin that allows configuring different robots.txt per each channel.</p>
-<br/>
 
 # Fifty Deg
 
@@ -37,11 +40,8 @@ there you will find the <a href="https://docs.sylius.com/en/latest/plugin-develo
 
 ## License
 This plugin's source code is completely free and released under the terms of the MIT license.
-<br/>
-<br/>
-<br/>
-<br/>
 
 ## Get in touch
 <a href="https://fiftydeg.com/" target="_blank">fiftydeg.com</a>
+<br/>
 <a href="https://www.linkedin.com/company/fiftydeg/" target="_blank" rel="nooperer noreferrer">Linked In</a>
