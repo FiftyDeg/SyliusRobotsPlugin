@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FiftyDeg\SyliusRobotsPlugin\Controller;
 
 use FiftyDeg\SyliusRobotsPlugin\ConfigLoader\ConfigLoaderInterface;
-use FiftyDeg\SyliusRobotsPlugin\Exception\RobotsNotFoundException as ExceptionRobotsNotFoundException;
+use FiftyDeg\SyliusRobotsPlugin\Exception\RobotsNotFoundException;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +39,7 @@ final class RobotsController
         }
 
         if (null === $robotsContent) {
-            throw new ExceptionRobotsNotFoundException($channelCode);
+            throw new RobotsNotFoundException($channelCode);
         }
 
         $response = new Response($robotsContent);
