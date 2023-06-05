@@ -18,7 +18,7 @@ fifty_deg_sylius_robots:
                 Disallow: /checkout/*
 
                 User-agent: YandexBot
-                Disallow: /checkout
+                Disallow: /checkout/*
 
                 User-agent: facebot
                             facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)
@@ -26,11 +26,11 @@ fifty_deg_sylius_robots:
                 Disallow: /checkout/*
 
                 User-agent: Applebot
-                Disallow: /
+                Disallow: /checkout/*
         -   code: 'DISALLOW_CHECKOUT'
             robots_content: | 
                 User-agent: Googlebot
-                Disallow: /checkout/
+                Disallow: /checkout/*
 
                 User-agent: Bingbot
                 Disallow: /checkout/*
@@ -50,7 +50,7 @@ fifty_deg_sylius_robots:
                 User-agent: facebot
                             facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)
                             facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)
-                Disallow: /
+                Disallow: /checkout/*
 
                 User-agent: Applebot
                 Disallow: /checkout/*
