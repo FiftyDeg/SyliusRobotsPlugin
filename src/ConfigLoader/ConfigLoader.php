@@ -22,36 +22,33 @@ final class ConfigLoader implements ConfigLoaderInterface
         $this->parameterBag = $parameterBag;
     }
 
-    /**
-     * Iterates through the var channels in the configuration file, fifty_deg_sylius_robots.yaml,
-     * until it finds the correct channel code (code variable) equal to $channelCode
-     *
-     * Returns the configuration variables, specified for each crawler bot
-     * 
-     * @param string $channelCode
-     * @return string
-     * @throws \Exception If $channelCode is not found in the configuration file, fifty_deg_sylius_robots.yaml
-     */
-    public function getRobotsByChannelCode(string $channelCode): string
+    public function getRobotsByChannelCode(string $channelCode): ?string
     {
         /** @var array<int, array<string, string>> $channelsConf */
         $channelsConf = $this->getParam('channels') ?? [];
 
-        /** @var array<int, array<string, string>> $defaultConf */
-        $defaultConf = $this->getParam('default') ?? [];
-
         foreach ($channelsConf as $channelConf) {
-            if (isset($channelConf['code']) &&
-                $channelConf['code'] === $channelCode) {
+            if (
+                isset($channelConf['code']) &&
+                $channelConf['code'] === $channelCode
+            ) {
                 return $channelConf['robots_content'];
             }
         }
 
-        if (count($defaultConf) == 1) {
+        return null;
+    }
+
+    public function getDefaultRobots(): ?string
+    {
+        /** @var array<int, array<string, string>> $defaultConf */
+        $defaultConf = $this->getParam('default') ?? [];
+
+        if (count($defaultConf) === 1) {
             return $defaultConf[0]['robots_content'];
         }
 
-        throw new \Exception('no Default Configuration or too many default configuration for robots yaml');
+        return null;
     }
 
     /**

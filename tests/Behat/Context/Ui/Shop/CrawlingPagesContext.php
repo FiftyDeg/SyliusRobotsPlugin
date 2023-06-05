@@ -170,7 +170,7 @@ final class CrawlingPagesContext extends BaseContext implements Context
         if (!isset($result[$allowIndex]) || !is_array($result[$allowIndex])) {
             $result[$allowIndex] = [];
         }
-        
+
         $result[$allowIndex][$userAgentDirective->userAgent] = ['pagePath' => $pagePath, 'userAgent' => $userAgentDirective];
 
         return $result;
@@ -208,8 +208,8 @@ final class CrawlingPagesContext extends BaseContext implements Context
 
     private function getAllUserAgentDirectives(Channel $channel, string $pageScheme): array
     {
-        $realPagePath = $pageScheme . '://' . $channel->getHostname() . '/';
-        $robotsUrl = $realPagePath . 'robots.txt';
+        $realPagePath = getenv('CONTAINER_NAME') . '/';
+        $robotsUrl = $pageScheme . '://' . $realPagePath . 'robots.txt?_channel_code=' . $channel->getCode();
         $userAgent = null;
         $allUserAgents = [];
 
@@ -217,6 +217,12 @@ final class CrawlingPagesContext extends BaseContext implements Context
             'ssl' => [
                     'verify_peer' => false,
                     'verify_peer_name' => false,
+            ],
+            'http' => [
+                'protocol_version' => 1.1,
+                'header'           => [
+                    'Connection: close',
+                ],
             ],
         ];
 

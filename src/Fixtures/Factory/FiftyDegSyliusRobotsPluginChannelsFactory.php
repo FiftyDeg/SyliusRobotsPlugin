@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * This class implements a Channel Factory, 
+ * This class implements a Channel Factory,
  * it is used by FiftyDegSyliusRobotsPluginChannelsFixture to create the Channel pbject to store.
  *
  * @author Marco Pistorello <marco.pistorello@fiftydeg.com>
@@ -59,7 +59,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
         $this->zoneRepository = $zoneRepository;
         $this->taxonRepository = $taxonRepository;
         $this->shopBillingDataFactory = $shopBillingDataFactory;
-        
+
         parent::__construct(
             $channelFactory,
             $localeRepository,
@@ -69,7 +69,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
             $shopBillingDataFactory
         );
 
-        
+
 
         $this->faker = \Faker\Factory::create();
 
@@ -92,11 +92,8 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
 
                 return $optCode;
             })
-            ->setDefault('hostname', function (Options $options): string {
-                /** @var string $optHostName */
-                $optHostName = $options['hostname'];
-
-                return $optHostName;
+            ->setDefault('hostname', function (): string {
+                return 'localhost';
             })
             ->setDefault('default_locale', function (Options $options): ResourceInterface {
                 /** @var ResourceInterface|null $localeRepo */
@@ -141,8 +138,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
     public function create(array $options = []): ChannelInterface
     {
         if (!isset($options['name']) ||
-            !isset($options['code']) ||
-            !isset($options['hostname'])) {
+            !isset($options['code'])) {
             throw new \Exception('Please check you yaml configuration file, it seems some channel you can try to add, is missing some fundamental data');
         }
 
@@ -233,7 +229,7 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
 
     /**
      * Checks that the values ​​of the variables in the configuration file coincide with those already in DB
-     * 
+     *
      * @param array<array-key, mixed> $options
      * @return string|null
      */

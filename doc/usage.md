@@ -9,35 +9,9 @@
   
 Below, a sample configuration:  
 
+
 ```yaml
 fifty_deg_sylius_robots:
-    default:
-        -   robots_content: | 
-                User-agent: Googlebot
-                Disallow: /checkout/*
-
-                User-agent: Bingbot
-                Disallow: /checkout/*
-
-                User-agent: Slurp
-                Disallow: /checkout/*
-
-                User-agent: DuckDuckBot
-                Disallow: /checkout/*
-
-                User-agent: Baiduspider
-                Disallow: /checkout/*
-
-                User-agent: YandexBot
-                Disallow: /checkout/*
-
-                User-agent: facebot
-                            facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)
-                            facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)
-                Disallow: /checkout/*
-
-                User-agent: Applebot
-                Disallow: /checkout/*
     channels:
         -   code: 'FASHION_WEB'
             robots_content: | 
@@ -57,7 +31,7 @@ fifty_deg_sylius_robots:
                 Disallow: /checkout/*
 
                 User-agent: YandexBot
-                Disallow: /checkout
+                Disallow: /checkout/*
 
                 User-agent: facebot
                             facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)
@@ -65,7 +39,61 @@ fifty_deg_sylius_robots:
                 Disallow: /checkout/*
 
                 User-agent: Applebot
-                Disallow: /checkout
+                Disallow: /checkout/*
+        -   code: 'DISALLOW_CHECKOUT'
+            robots_content: | 
+                User-agent: Googlebot
+                Disallow: /checkout/*
+
+                User-agent: Bingbot
+                Disallow: /checkout/*
+
+                User-agent: Slurp
+                Disallow: /checkout/*
+
+                User-agent: DuckDuckBot
+                Disallow: /checkout/*
+
+                User-agent: Baiduspider
+                Disallow: /checkout/*
+
+                User-agent: YandexBot
+                Disallow: /checkout/*
+
+                User-agent: facebot
+                            facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)
+                            facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)
+                Disallow: /checkout/*
+
+                User-agent: Applebot
+                Disallow: /checkout/*
+    default:
+        -   robots_content: | 
+                User-agent: Googlebot
+                Disallow: /
+
+                User-agent: Bingbot
+                Disallow: /checkout/*
+
+                User-agent: Slurp
+                Disallow: /checkout/*
+
+                User-agent: DuckDuckBot
+                Disallow: /checkout/*
+
+                User-agent: Baiduspider
+                Disallow: /checkout/*
+
+                User-agent: YandexBot
+                Disallow: /checkout/*
+
+                User-agent: facebot
+                            facebookexternalhit/1.0 (+http://www.facebook.com/externalhit_uatext.php)
+                            facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)
+                Disallow: /checkout/*
+
+                User-agent: Applebot
+                Disallow: /checkout/*
 ```
 
 ---
