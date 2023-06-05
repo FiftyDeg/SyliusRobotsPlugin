@@ -11,10 +11,12 @@ interface ConfigLoaderInterface
      * until it finds the correct channel code (code variable) equal to $channelCode
      *
      * Returns the configuration variables, specified for each crawler bot
-     * 
+     *
      * @param string $channelCode
      * @return string
      * @throws \Exception If $channelCode is not found in the configuration file, fifty_deg_sylius_robots.yaml
      */
-    public function getRobotsByChannelCode(string $channelCode): string;
+    public function getRobotsByChannelCode(string $channelCode): ?string;
+
+    public function getDefaultRobots(): ?string;
 }
