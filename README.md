@@ -3,7 +3,7 @@
         <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
     </a>
     <a href="https://fiftydeg.com" target="_blank">
-        ![FiftyDeg](doc/images/fd.png)
+        <img src="doc/images/fd.png" />
     </a>
 </p>
 
