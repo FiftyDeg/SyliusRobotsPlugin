@@ -3,7 +3,7 @@ fifty_deg_sylius_robots:
         -   code: 'FASHION_WEB'
             robots_content: | 
                 User-agent: Googlebot
-                Disallow: /checkout
+                Disallow: /checkout/*
 
                 User-agent: Bingbot
                 Disallow: /checkout/*
@@ -30,7 +30,7 @@ fifty_deg_sylius_robots:
         -   code: 'DISALLOW_CHECKOUT'
             robots_content: | 
                 User-agent: Googlebot
-                Disallow: /checkout/
+                Disallow: /checkout/*
 
                 User-agent: Bingbot
                 Disallow: /checkout/*
