@@ -15,8 +15,7 @@ $ cd .docker && ./bin/php_test.sh
 ```
 <br/>
 
-### BDD
-------------
+## BDD
 A suite for BDD testing is defined in `tests/Behat/Resources/services.yml`.  
 Features are defined in `features`, and contexts in `tests/Behat/Resources/suites.yml`.
 
