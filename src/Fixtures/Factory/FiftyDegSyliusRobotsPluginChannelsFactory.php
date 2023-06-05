@@ -18,6 +18,12 @@ use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * This class implements a Channel Factory, 
+ * it is used by FiftyDegSyliusRobotsPluginChannelsFixture to create the Channel pbject to store.
+ *
+ * @author Marco Pistorello <marco.pistorello@fiftydeg.com>
+ */
 class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
 {
     /** @var \Faker\Generator */
@@ -225,7 +231,12 @@ class FiftyDegSyliusRobotsPluginChannelsFactory extends ChannelExampleFactory
         return $channel;
     }
 
-    /** @param array<array-key, mixed> $options */
+    /**
+     * Checks that the values ​​of the variables in the configuration file coincide with those already in DB
+     * 
+     * @param array<array-key, mixed> $options
+     * @return string|null
+     */
     public function checkOptionsFormats(array $options = []): ?string
     {
         if (isset($options['locales'])) {
